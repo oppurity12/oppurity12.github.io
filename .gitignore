@@ -10,12 +10,16 @@ vendor/
 
 # Node.js dependencies
 node_modules/
+package-lock.json
 
 # Development containers
 .devcontainer/
 
 # GitHub workflows (if not needed)
 .github/
+
+# Local development files
+local/
 
 # OS generated files
 .DS_Store

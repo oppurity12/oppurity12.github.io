@@ -134,7 +134,11 @@ $(document).ready(function () {
   });
 
   // Init smooth scroll, this needs to be slightly more than then fixed masthead height
+<<<<<<< HEAD
   $("a:not([href^='mailto:']):not([href^='http']):not([href^='//'])").smoothScroll({
+=======
+  $("a").smoothScroll({
+>>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2
     offset: -scssMastheadHeight,
     preventDefault: false,
   });

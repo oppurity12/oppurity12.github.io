@@ -20,7 +20,11 @@ author_profile: true
         {% continue %}
       {% endif %}
       {% unless title_shown %}
+<<<<<<< HEAD
         <h2 style="margin-bottom: 0.8em; margin-top: 1.5em; font-size: 1.4em; font-weight: 600; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.3em;">{{ category[1].title }}</h2>
+=======
+        <h2>{{ category[1].title }}</h2><hr />
+>>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2
         {% assign title_shown = true %}
       {% endunless %}
       {% include archive-single.html %}

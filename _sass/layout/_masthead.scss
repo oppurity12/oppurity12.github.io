@@ -27,7 +27,11 @@
   &__inner-wrap {
     @include container;
     @include clearfix;
+<<<<<<< HEAD
     padding: 0.8em 1.5em;
+=======
+    padding: 0.5em 1em;
+>>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2
     font-family: $sans-serif-narrow;
 
     @include breakpoint($x-large) {
@@ -40,6 +44,7 @@
 
     a {
       text-decoration: none;
+<<<<<<< HEAD
       color: #2c3e50;
       font-weight: 500;
       transition: color 0.2s ease;
@@ -47,6 +52,8 @@
 
     a:hover {
       color: #3498db;
+=======
+>>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2
     }
   }
 }
@@ -69,7 +76,11 @@
 
   &--lg {
     padding-right: 2em;
+<<<<<<< HEAD
     font-weight: 600;
     font-size: 1.1em;
+=======
+    font-weight: 700;
+>>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2
   }
 }
