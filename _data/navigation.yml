@@ -11,7 +11,6 @@ main:
   - title: "Publications"
     url: /publications/
 
-<<<<<<< HEAD
   # - title: "Talks"
     # url: /talks/    
 
@@ -26,30 +25,9 @@ main:
     
   - title: "CV"
     url: /files/CV.pdf
-=======
-  - title: "Talks"
-    url: /talks/    
-
-  - title: "Teaching"
-    url: /teaching/    
-    
-  - title: "Portfolio"
-    url: /portfolio/
-        
-  - title: "Blog Posts"
-    url: /year-archive/
-    
-  - title: "CV"
-    url: /cv/
->>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2
     
   # - title: "CV"
   #   url: /cv-json/
     
-<<<<<<< HEAD
   # - title: "Guide"
     # url: /markdown/
-=======
-  - title: "Guide"
-    url: /markdown/
->>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2

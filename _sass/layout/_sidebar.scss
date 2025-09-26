@@ -95,18 +95,10 @@
 
   img {
     max-width: 175px;
-<<<<<<< HEAD
     border-radius: 0;
 
     @include breakpoint($large) {
       padding: 5px;
-=======
-    border-radius: 50%;
-
-    @include breakpoint($large) {
-      padding: 5px;
-      border: 1px solid var(--global-border-color);
->>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2
     }
   }
 }
@@ -184,20 +176,11 @@
   }
 
   button {
-<<<<<<< HEAD
     display: none;
-=======
-    margin-bottom: 0;
-
-    @include breakpoint($large) {
-      display: none;
-    }
->>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2
   }
 }
 
 .author__urls {
-<<<<<<< HEAD
   display: block;
   position: relative;
   margin: 0;
@@ -207,32 +190,6 @@
   background: transparent;
   box-shadow: none;
   cursor: default;
-
-=======
-  display: none;
-  position: absolute;
-  right: 0;
-  margin-top: 15px;
-  padding: 10px;
-  list-style-type: none;
-  border: 1px solid var(--global-border-color);
-  border-radius: $border-radius;
-  background: var(--global-bg-color);
-  z-index: -1;
-  box-shadow: 0 0 10px rgba(#000, 0.25);
-  cursor: default;
-
-  @include breakpoint($large) {
-    display: block;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-  }
-
->>>>>>> c0e5e2b3404698145fd4ceb6ee64e4fb193520f2
   &:before {
     display: block;
     content: "";
