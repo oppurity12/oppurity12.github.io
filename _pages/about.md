@@ -43,7 +43,8 @@ redirect_from:
 
 Hi! I'm a 3rd year integrated M.S./Ph.D. student in the Machine Learning Lab at POSTECH, advised by [Jungseul Ok](https://sites.google.com/view/jungseulok). 
 
-My research focuses on making ML/NLP frameworks more reliable in real-world scenarios. I work on large language models (LLMs) and retrieval-augmented generation (RAG) to mitigate data-borne threats such as malicious input, data poisoning, and privacy leakage. Recently, I have been especially interested in LLM watermarking for detecting LLM-generated content.
+
+My research focuses on making ML/NLP frameworks more reliable in real-world scenarios. I work on large language models (LLMs) and retrieval-augmented generation (RAG), addressing data-borne threats such as malicious inputs, corrupted training data, and LLM misuse (e.g., fake content or cheating).  Recently, I have been especially interested in LLM watermarking for detecting LLM-generated content.
 
 I'm always open to discussion and collaboration, so please feel free to reach out anytime!
 
