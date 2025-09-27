@@ -49,13 +49,15 @@ My research focuses on making ML/NLP frameworks more reliable in real-world scen
 I'm always open to discussion and collaboration, so please feel free to reach out anytime!
 
 <div class="contact-info">
-<strong>■ Contact:</strong> <a href="mailto:oppurity@postech.ac.kr">oppurity@postech.ac.kr</a>
+<ul style="margin: 0; padding-left: 0.3em; list-style-type: square;">
+<li style="margin-bottom: 0; line-height: 1.5;"><strong>Contact:</strong> <a href="mailto:oppurity@postech.ac.kr">oppurity@postech.ac.kr</a></li>
+</ul>
 </div>
 
 ## 🔥 News
 
 <div style="background-color: #fff5f5; border-left: 4px solid #e74c3c; padding: 1em; margin: 1em 0; border-radius: 4px;">
-<ul style="margin: 0; padding-left: 1.2em;">
+<ul style="margin: 0; padding-left: 0.3em; list-style-type: square;">
 <li style="margin-bottom: 0.8em; line-height: 1.5;"><strong>Sep 2025</strong>: Beginning a research visit at NYU (September–December).</li>
 <li style="margin-bottom: 0.8em; line-height: 1.5;"><strong>Aug 2025</strong>: Two papers accepted by EMNLP 2025 (Main) and EMNLP 2025 (Findings).</li>
 </ul>
