@@ -41,10 +41,9 @@ redirect_from:
 }
 </style>
 
-Hi! I'm a 3rd year integrated M.S./Ph.D. candidate in the Machine Learning Lab at POSTECH, advised by [Jungseul Ok](https://sites.google.com/view/jungseulok). 
+Hi! I'm a 4th-year integrated M.S./Ph.D. candidate in the Machine Learning Lab at POSTECH, advised by[Jungseul Ok](https://sites.google.com/view/jungseulok). 
 
-
-My research focuses on making ML/NLP frameworks more reliable in real-world scenarios. I work on large language models (LLMs) and retrieval-augmented generation (RAG), addressing data-borne threats such as malicious inputs, corrupted training data, and LLM misuse (e.g., fake content or cheating).  Recently, I have been especially interested in LLM watermarking for detecting LLM-generated content.
+My research focuses on improving the reliability of ML/NLP systems in real-world settings. I study large language models (LLMs), with an emphasis on robustness against malicious inputs, corrupted training data, and misuse such as fake content generation. Recently, I’ve been particularly interested in watermarking techniques for detecting LLM-generated text.
 
 I'm always open to discussion and collaboration, so please feel free to reach out anytime!
 
@@ -66,5 +65,5 @@ I'm always open to discussion and collaboration, so please feel free to reach ou
 ## Academic Services
 
 <div style="background-color: #f0f8ff; border-left: 4px solid #3498db; padding: 1em; margin: 1em 0; border-radius: 4px;">
-<p style="margin: 0; color: #2c3e50; font-weight: 500;"><strong>Reviewer:</strong> ICML 2025</p>
+<p style="margin: 0; color: #2c3e50; font-weight: 500;"><strong>Reviewer:</strong> ICML 2025, ICLR 2026</p>
 </div>
