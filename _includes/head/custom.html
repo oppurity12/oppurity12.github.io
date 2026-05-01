@@ -19,12 +19,13 @@
 <link rel="icon" href="/images/favicon.ico"/>
 <meta name="theme-color" content="#ffffff"/>
 
-<!-- Apply saved theme before paint to prevent flash of wrong theme -->
+<!-- Apply saved theme before paint to prevent flash of wrong theme.
+     Default = light. Only switch to dark if the user explicitly chose it. -->
 <script>
 (function(){
-  var t=localStorage.getItem('theme');
-  var p=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
-  if((t||p)==='dark') document.documentElement.setAttribute('data-theme','dark');
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
 })();
 </script>
 
