@@ -2,7 +2,7 @@
 layout: archive
 title: "Publications"
 permalink: /publications/
-author_profile: true
+author_profile: false
 ---
 
 
@@ -17,7 +17,7 @@ author_profile: true
         {% continue %}
       {% endif %}
       {% unless title_shown %}
-        <h2 style="margin-bottom: 0.8em; margin-top: 1.5em; font-size: 1.4em; font-weight: 600; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.3em;">{{ category[1].title }}</h2>
+        <h2 style="margin-bottom: 0.5em; margin-top: 1.4em; font-size: 1.4em; font-weight: 400; color: #000; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.3em; letter-spacing: 0.01em;">{{ category[1].title }}</h2>
         {% assign title_shown = true %}
       {% endunless %}
       {% include archive-single.html %}

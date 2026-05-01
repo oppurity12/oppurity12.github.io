@@ -25,28 +25,29 @@
   }
 
   &__inner-wrap {
-    @include container;
-    @include clearfix;
-    padding: 0.8em 1.5em;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 860px;          /* match #main content width */
+    margin: 0 auto;            /* center horizontally */
+    box-sizing: border-box;
+    padding: 0.8em 1em;        /* horizontal 1em matches #main's padding so edges align */
     font-family: $sans-serif-narrow;
-
-    @include breakpoint($x-large) {
-      max-width: $x-large;
-    }
 
     nav {
       z-index: 10;
+      margin-left: auto;
     }
 
     a {
       text-decoration: none;
-      color: #2c3e50;
+      color: var(--global-masthead-link-color);
       font-weight: 500;
       transition: color 0.2s ease;
     }
 
     a:hover {
-      color: #3498db;
+      color: var(--global-link-color);
     }
   }
 }

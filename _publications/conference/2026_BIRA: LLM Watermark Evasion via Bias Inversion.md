@@ -2,6 +2,7 @@
 title: "LLM Watermark Evasion via Bias Inversion"
 collection: publications
 category: conferences
+selected: true
 # excerpt: 'This paper is about a famous math equation, $$E=mc^2$$'
 venue: 'ICML 2026'
 paperurl: 'https://arxiv.org/abs/2509.23019'

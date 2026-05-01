@@ -5,6 +5,11 @@
 <!-- Support for Academicons -->
 <link rel="stylesheet" href="{{ base_path }}/assets/css/academicons.css"/>
 
+<!-- Source Sans Pro (academicpages default font) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
 <link rel="apple-touch-icon" sizes="180x180" href="{{ base_path }}/images/apple-touch-icon-180x180.png"/>
 <link rel="icon" type="image/svg+xml" href="{{ base_path }}/images/favicon.svg"/>
@@ -13,5 +18,261 @@
 <link rel="manifest" href="{{ base_path }}/images/manifest.json"/>
 <link rel="icon" href="/images/favicon.ico"/>
 <meta name="theme-color" content="#ffffff"/>
+
+<!-- Apply saved theme before paint to prevent flash of wrong theme -->
+<script>
+(function(){
+  var t=localStorage.getItem('theme');
+  var p=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  if((t||p)==='dark') document.documentElement.setAttribute('data-theme','dark');
+})();
+</script>
+
+<!-- Centered single-column layout overrides -->
+<style>
+  /* Constrain main content width and center it */
+  #main {
+    max-width: 860px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Remove sidebar offset on .page */
+  @media screen and (min-width: 64em) {
+    .page,
+    .archive {
+      float: none !important;
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+
+  /* Remove right padding reserved for sidebar in list items */
+  @media screen and (min-width: 48em) {
+    .list__item {
+      padding-right: 0 !important;
+    }
+  }
+
+  /* Masthead nav layout (root layout fixed in _sass/layout/_masthead.scss).
+     Here we only style the inner widgets (social row, nav list, toggle button). */
+  .masthead__nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+  }
+  .masthead__social {
+    display: flex;
+    gap: 0.9em;
+  }
+  .masthead__social a {
+    color: var(--global-masthead-link-color);
+    font-size: 1.5em;
+    text-decoration: none;
+    line-height: 1;
+    transition: color 0.2s ease;
+  }
+  .masthead__social a:hover {
+    color: var(--global-link-color);
+  }
+  .masthead__nav ul {
+    display: flex;
+    gap: 1.5em;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Theme toggle icon button — matches nav link style */
+  #theme-toggle {
+    background: none;
+    border: none;
+    padding: 0 0.1em;
+    cursor: pointer;
+    color: var(--global-masthead-link-color);
+    font-size: 1.05em;
+    line-height: 1;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+  }
+  #theme-toggle:hover {
+    color: var(--global-link-color);
+  }
+
+  /* Profile header — compact: photo floats right, name + bio wrap on the left */
+  .profile-header {
+    margin: 0;
+  }
+  .profile-header__photo {
+    float: right;
+    width: 240px;
+    height: 240px;
+    margin: 0 0 1.2em 2em;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.10);
+  }
+  .profile-header__info h1 {
+    margin: 0 0 0.5em;
+    font-size: 2.4em;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--global-text-color);
+  }
+  /* Section headings (## News, ## Publications…) start on a clean line below the float */
+  .page__content h2 { clear: both; }
+
+  @media (max-width: 700px) {
+    .profile-header__photo {
+      float: none;
+      display: block;
+      margin: 0 auto 1.4em;
+      width: 170px;
+      height: 170px;
+    }
+    .profile-header__info h1 {
+      font-size: 2em;
+      text-align: center;
+    }
+  }
+  .profile-header__info .affiliation {
+    margin: 0.2em 0;
+    color: var(--global-text-color);
+    font-size: 1em;
+  }
+  .profile-header__icons {
+    margin-top: 0.6em;
+  }
+  .profile-header__icons a {
+    display: inline-block;
+    margin-right: 0.7em;
+    color: var(--global-masthead-link-color);
+    font-size: 1.25em;
+    text-decoration: none !important;
+    transition: color 0.2s ease;
+  }
+  .profile-header__icons a:hover {
+    color: var(--global-link-color);
+  }
+
+  /* Plain section headings with subtle underline (reference style) */
+  .page__content h2 {
+    margin-top: 1.8em;
+    margin-bottom: 0.7em;
+    font-size: 1.4em;
+    font-weight: 400;
+    color: var(--global-text-color);
+    border-bottom: 1px solid var(--global-border-color);
+    padding-bottom: 0.3em;
+  }
+
+  /* News list (plain, no background) */
+  .news-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0.6em 0 1.4em;
+  }
+  .news-list li {
+    margin-bottom: 0.55em;
+    line-height: 1.55;
+    color: var(--global-text-color);
+  }
+  .news-list .news-date {
+    display: inline-block;
+    width: 5em;
+    color: var(--global-text-color);
+    margin-right: 1.4em;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .page__content .news-list a,
+  .page__content .news-list a:visited,
+  .page__content .news-list a:hover {
+    color: #0e7490;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .page__content .news-list a:hover {
+    opacity: 0.75;
+  }
+
+  /* Inline bracketed paper link */
+  .pub-links {
+    margin-top: 0.1em;
+    margin-bottom: 0.6em;
+    font-size: 0.95em;
+  }
+  .pub-links a {
+    color: var(--global-text-color);
+    font-weight: 700;
+    text-decoration: none;
+    margin-right: 0.4em;
+  }
+  .pub-links a::before { content: "["; }
+  .pub-links a::after { content: "]"; }
+  .page__content .pub-links a,
+  .page__content .pub-links a:hover,
+  .archive .pub-links a,
+  .archive .pub-links a:hover {
+    text-decoration: none;
+  }
+  .page__content .pub-links a:hover,
+  .archive .pub-links a:hover {
+    opacity: 0.7;
+  }
+
+  /* Tighten spacing between title / citation / venue / pub-links */
+  .archive__item-title {
+    margin-top: 0.6em !important;
+    margin-bottom: 0.15em !important;
+  }
+  .archive__item p {
+    margin-top: 0.05em !important;
+    margin-bottom: 0.15em !important;
+  }
+
+  /* Dark mode: override hardcoded inline color (#000) on authors/citation/venue
+     so they turn white. Paper title stays the deep teal accent (#0e7490) in
+     both modes — that color reads well on white and on #1a1a1a backgrounds. */
+  html[data-theme="dark"] .archive__item p {
+    color: var(--global-text-color) !important;
+  }
+
+  /* Footer: full-width edge-to-edge, content vertically centered.
+     Light mode → black bg / white text.   Dark mode → white bg / black text.
+     Also paint <html> the same color so any gap below the body is filled. */
+  html { background: #000; }
+  .page__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    color: #fff;
+    border-top: none;
+    margin-top: 2em;
+    padding: 0.35em 1em;
+    min-height: 0;
+  }
+  .page__footer footer {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+  .page__footer-copyright {
+    margin: 0;
+    color: inherit;
+    line-height: 1.4;
+  }
+  html[data-theme="dark"] { background: #fff; }
+  html[data-theme="dark"] .page__footer {
+    background: #fff;
+    color: #000;
+  }
+</style>
 
 <!-- end custom head snippets -->

@@ -1,70 +1,71 @@
 ---
 permalink: /
 title: "Jeongyeon Hwang"
-author_profile: true
+author_profile: false
 redirect_from: 
   - /about/
   - /about.html
 ---
 
 <style>
+/* Hide auto-rendered page title since we render it inside the profile header */
+.page__title { display: none; }
+
 .page a {
-  color: inherit !important;
-  text-decoration: underline !important;
-  font-weight: bold !important;
+  color: var(--global-text-color);
+  text-decoration: underline;
 }
 .page a:hover {
-  color: inherit !important;
-  text-decoration: underline !important;
-  font-weight: bold !important;
+  color: var(--global-link-color);
+  text-decoration: underline;
 }
 
 .page__content {
-  line-height: 1.6;
+  line-height: 1.7;
+  color: var(--global-text-color);
 }
 
 .page__content p {
+  margin-bottom: 1.1em;
+}
+
+.selected-pubs .archive__item {
   margin-bottom: 1.2em;
-  color: #2c3e50;
-}
-
-.contact-info {
-  background-color: #f8f9fa;
-  padding: 1em;
-  border-left: 4px solid #3498db;
-  margin: 1.5em 0;
-  border-radius: 4px;
-}
-
-.contact-info strong {
-  color: #2c3e50;
 }
 </style>
 
-Hi! I'm a 4th-year integrated M.S./Ph.D. candidate in the Machine Learning Lab at POSTECH, advised by[Jungseul Ok](https://sites.google.com/view/jungseulok). 
-
-My research focuses on improving the reliability of ML/NLP systems in real-world settings. I study large language models (LLMs), with an emphasis on robustness against malicious inputs, corrupted training data, and misuse such as fake content generation. Recently, I’ve been particularly interested in watermarking techniques for detecting LLM-generated text.
-
-I'm always open to discussion and collaboration, so please feel free to reach out anytime!
-
-<div class="contact-info">
-<ul style="margin: 0; padding-left: 0.3em; list-style-type: square;">
-<li style="margin-bottom: 0; line-height: 1.5;"><strong>Contact:</strong> <a href="mailto:oppurity@postech.ac.kr">oppurity@postech.ac.kr</a></li>
-</ul>
+<div class="profile-header">
+  <img class="profile-header__photo" src="{{ '/images/profile.jpg' | relative_url }}" alt="Jeongyeon Hwang" />
+  <div class="profile-header__info">
+    <h1>Jeongyeon Hwang</h1>
+  </div>
 </div>
 
-## 🔥 News
+Hi! I’m Jeongyeon Hwang, a fourth year integrated M.S./Ph.D. candidate in the Graduate School of Artificial Intelligence at POSTECH, advised by [Jungseul Ok](https://sites.google.com/view/jungseulok).
 
-<div style="background-color: #fff5f5; border-left: 4px solid #e74c3c; padding: 1em; margin: 1em 0; border-radius: 4px;">
-<ul style="margin: 0; padding-left: 0.3em; list-style-type: square;">
-<li style="margin-bottom: 0.8em; line-height: 1.5;"><strong>May 2026</strong>: A paper (BIRA) got accepted at ICML 2026.</li>
-<li style="margin-bottom: 0.8em; line-height: 1.5;"><strong>Sep 2025</strong>: Beginning a research visit at NYU (September–December).</li>
-<li style="margin-bottom: 0.8em; line-height: 1.5;"><strong>Aug 2025</strong>: Two papers accepted by EMNLP 2025 (Main) and EMNLP 2025 (Findings).</li>
+My research focuses on improving the reliability of machine learning and natural language processing systems in real-world settings. In particular, I study large language models (LLMs), with an emphasis on robustness against adversarial inputs, corrupted training data, and potential misuse such as fake content generation. Recently, I have been especially interested in watermarking techniques for detecting LLM-generated text.
+
+ 
+Please feel free to reach out via email at *{firstname}.{lastname}@postech.ac.kr*.
+
+## News
+
+<ul class="news-list">
+<li><span class="news-date">May 2026</span>A paper (<a href="https://arxiv.org/abs/2509.23019" target="_blank">BIRA</a>) got accepted at ICML 2026.</li>
+<li><span class="news-date">Sep 2025</span>Beginning a research visit at <a href="https://www.nyu.edu/" target="_blank">NYU</a> (September–December).</li>
+<li><span class="news-date">Aug 2025</span>Two papers (<a href="https://arxiv.org/abs/2410.22954" target="_blank">RA-RAG</a>, <a href="https://arxiv.org/abs/2506.00344" target="_blank">LSC</a>) got accepted at EMNLP 2025.</li>
+<li><span class="news-date">Aug 2024</span>A paper (<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Park_MedBN_Robust_Test-Time_Adaptation_against_Malicious_Test_Samples_CVPR_2024_paper.pdf" target="_blank">MedBN</a>) got accepted at CVPR 2024.</li>
 </ul>
+
+## Publications
+
+<div class="selected-pubs">
+{% assign selected = site.publications | where: "selected", true | sort: "slug" | reverse %}
+{% for post in selected %}
+  {% include archive-single.html %}
+{% endfor %}
 </div>
 
 ## Academic Services
 
-<div style="background-color: #f0f8ff; border-left: 4px solid #3498db; padding: 1em; margin: 1em 0; border-radius: 4px;">
-<p style="margin: 0; color: #2c3e50; font-weight: 500;"><strong>Reviewer:</strong> ICML 2025, ICLR 2026</p>
-</div>
+<p><strong>Reviewer:</strong> ICML 2025, ICLR 2026, ICML 2026</p>

@@ -2,6 +2,7 @@
 title: "Retrieval-Augmented Generation with Estimation of Source Reliability"
 collection: publications
 category: conferences
+selected: true
 # excerpt: 'This paper is about a famous math equation, $$E=mc^2$$'
 venue: 'EMNLP, 2025 Main (long)'
 paperurl: 'https://arxiv.org/abs/2410.22954'
