@@ -52,6 +52,7 @@ Please feel free to reach out via email at *{firstname}.{lastname}@postech.ac.kr
 
 <ul class="news-list">
 <li><span class="news-date">May 2026</span>A paper (<a href="https://arxiv.org/abs/2509.23019" target="_blank">BIRA</a>) got accepted at ICML 2026.</li>
+<li><span class="news-date">Jan 2026</span>Received an <span style="color: #0e7490;">Honorable Mention</span> at the BK21 Outstanding Paper Awards from POSTECH GSAI.</li>
 <li><span class="news-date">Sep 2025</span>Beginning a research visit at <a href="https://www.nyu.edu/" target="_blank">NYU</a> (September–December).</li>
 <li><span class="news-date">Aug 2025</span>Two papers (<a href="https://arxiv.org/abs/2410.22954" target="_blank">RA-RAG</a>, <a href="https://arxiv.org/abs/2506.00344" target="_blank">LSC</a>) got accepted at EMNLP 2025.</li>
 <li><span class="news-date">Aug 2024</span>A paper (<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Park_MedBN_Robust_Test-Time_Adaptation_against_Malicious_Test_Samples_CVPR_2024_paper.pdf" target="_blank">MedBN</a>) got accepted at CVPR 2024.</li>
