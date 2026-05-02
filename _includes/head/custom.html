@@ -20,12 +20,12 @@
 <meta name="theme-color" content="#ffffff"/>
 
 <!-- Apply saved theme before paint to prevent flash of wrong theme.
-     Default = light. Only switch to dark if the user explicitly chose it. -->
+     Honors explicit user choice (localStorage) first, then OS preference. -->
 <script>
 (function(){
-  if (localStorage.getItem('theme') === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
+  var saved = localStorage.getItem('theme');
+  var dark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if (dark) document.documentElement.setAttribute('data-theme', 'dark');
 })();
 </script>
 
@@ -87,7 +87,7 @@
     list-style: none;
   }
 
-  /* Theme toggle icon button — matches nav link style */
+  /* Theme toggle icon — anchor styled like a nav link */
   #theme-toggle {
     background: none;
     border: none;
@@ -97,12 +97,17 @@
     font-size: 1.05em;
     line-height: 1;
     transition: color 0.2s ease;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    text-decoration: none !important;
+    user-select: none;
   }
-  #theme-toggle:hover {
+  #theme-toggle:hover,
+  #theme-toggle:focus {
     color: var(--global-link-color);
+    outline: none;
   }
+  #theme-toggle i { pointer-events: none; }
 
   /* Profile header — compact: photo floats right, name + bio wrap on the left */
   .profile-header {

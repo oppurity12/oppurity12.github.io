@@ -19,15 +19,16 @@
           <li><a href="{{ domain }}{{ link.url }}">{{ link.title }}</a></li>
         {% endfor %}
       </ul>
-      <button id="theme-toggle" type="button" aria-label="toggle theme" title="toggle theme">
+      <a id="theme-toggle" role="button" tabindex="0" aria-label="toggle theme" title="toggle theme">
         <i id="theme-icon" class="fas fa-sun" aria-hidden="true"></i>
-      </button>
+      </a>
     </nav>
   </div>
 </div>
 
 <!-- Theme toggle: inlined here because the site loads pre-built main.min.js,
-     so changes to assets/js/_main.js do not reach the browser without a rebuild. -->
+     so changes to assets/js/_main.js do not reach the browser without a rebuild.
+     Mirrors the academicpages reference implementation. -->
 <script>
 (function () {
   function applyTheme(theme) {
@@ -44,25 +45,44 @@
   function currentTheme() {
     var saved = localStorage.getItem('theme');
     if (saved === 'dark' || saved === 'light') return saved;
-    return 'light';   // default to light regardless of OS preference
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  }
+
+  function bind() {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn || btn.dataset.bound) return;
+    btn.dataset.bound = '1';
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      applyTheme(next);
+    });
   }
 
   function init() {
     applyTheme(currentTheme());
-    var btn = document.getElementById('theme-toggle');
-    if (btn) {
-      btn.addEventListener('click', function () {
-        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('theme', next);
-        applyTheme(next);
-      });
-    }
+    bind();
   }
 
+  // Run immediately so the icon class is correct before paint, then re-bind on
+  // DOMContentLoaded in case the button was not yet in the DOM.
+  init();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  }
+
+  // Follow OS preference live, but only if the user has not explicitly chosen.
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
   }
 })();
 </script>
