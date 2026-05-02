@@ -57,7 +57,7 @@ Please feel free to reach out via email at *{firstname}.{lastname}@postech.ac.kr
 <li><span class="news-date">Aug 2024</span>A paper (<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Park_MedBN_Robust_Test-Time_Adaptation_against_Malicious_Test_Samples_CVPR_2024_paper.pdf" target="_blank">MedBN</a>) got accepted at CVPR 2024.</li>
 </ul>
 
-## Publications
+## Selected Publications
 
 <div class="selected-pubs">
 {% assign selected = site.publications | where: "selected", true | sort: "slug" | reverse %}
@@ -65,7 +65,3 @@ Please feel free to reach out via email at *{firstname}.{lastname}@postech.ac.kr
   {% include archive-single.html %}
 {% endfor %}
 </div>
-
-## Academic Services
-
-<p><strong>Reviewer:</strong> ICML 2025, ICLR 2026, ICML 2026</p>
