@@ -20,12 +20,12 @@
 <meta name="theme-color" content="#ffffff"/>
 
 <!-- Apply saved theme before paint to prevent flash of wrong theme.
-     Honors explicit user choice (localStorage) first, then OS preference. -->
+     Default = light. Only switch to dark if the user explicitly chose it. -->
 <script>
 (function(){
-  var saved = localStorage.getItem('theme');
-  var dark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
 })();
 </script>
 
