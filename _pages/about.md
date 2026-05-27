@@ -43,7 +43,7 @@ redirect_from:
 
 Hi! I’m Jeongyeon Hwang, a fourth year integrated M.S./Ph.D. candidate in the Graduate School of Artificial Intelligence at POSTECH, advised by [Jungseul Ok](https://sites.google.com/view/jungseulok).
 
-My research focuses on improving the reliability of machine learning and natural language processing systems in real-world settings. In particular, I study large language models (LLMs), with an emphasis on robustness against adversarial inputs, corrupted training data, and potential misuse such as fake content generation. Recently, I have been especially interested in watermarking techniques for detecting LLM-generated text.
+My research focuses on the **trust boundaries** of AI systems deployed in **real-world environments**, where assumptions made in controlled settings often break down across system interfaces, including inputs, outputs, and model weights. I study these failure modes under realistic threat models and design safeguards that reflect actual deployment conditions. My goal is to help establish a **zero-trust foundation** for reliable AI in real-world deployment.
 
  
 Please feel free to reach out via email at *{firstname}.{lastname}@postech.ac.kr*.
