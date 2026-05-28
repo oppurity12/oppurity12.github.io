@@ -43,8 +43,11 @@ redirect_from:
 
 Hi! I’m Jeongyeon Hwang, a fourth year integrated M.S./Ph.D. candidate in the Graduate School of Artificial Intelligence at POSTECH, advised by [Jungseul Ok](https://sites.google.com/view/jungseulok).
 
-My research focuses on the **trust boundaries** of AI systems deployed in **real-world environments**, where assumptions made in controlled settings often break down across system interfaces, including inputs, outputs, and model weights. I study these failure modes under realistic threat models and design safeguards that reflect actual deployment conditions. My goal is to help establish a **zero-trust foundation** for reliable AI in real-world deployment.
+<!-- My research focuses on the **trust boundaries** of AI systems deployed in **real-world environments**, where assumptions made in controlled settings often break down across system interfaces, including inputs, outputs, and model weights. I study these failure modes under realistic threat models and design safeguards that reflect actual deployment conditions. My goal is to help establish a **zero-trust foundation** for reliable AI in real-world deployment. -->
 
+<!-- My research focuses on the **trust boundaries** of AI systems deployed in **real-world environments**, where assumptions made in idealized evaluation settings often break down across system interfaces, including inputs, outputs, and model weights. I study these failure modes under realistic threat models and design safeguards that reflect actual deployment conditions. My goal is to help establish a **zero-trust foundation** for reliable AI in real-world deployment. -->
+
+I'm interested in what goes wrong when AI systems meet the real world. Existing evaluations often assume clean, idealized conditions—but in deployment, things break down across many surfaces: inputs, outputs, and weights. I study these failures under realistic threat models and build safeguards that hold up in actual deployment, working toward a zero-trust approach to AI we can rely on.
  
 Please feel free to reach out via email at *{firstname}.{lastname}@postech.ac.kr*.
 
