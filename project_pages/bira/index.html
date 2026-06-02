@@ -77,7 +77,7 @@
       </p>
       <ul class="tldr-list">
         <li>
-          Reducing the sampling probability of green tokens by a small margin leads to an
+          Reducing the sampling probability of green tokens by a small margin during rewriting leads to an
           <b>exponential drop in detection probability</b>.
         </li>
         <li>
@@ -100,8 +100,8 @@
     <h2 class="section-title">A small reduction makes detection decay exponentially</h2>
 
     <p class="lead">
-      Detection reduces to thresholding the empirical green-token rate at some $p_\tau$. So how far must a
-      rewriter lower that rate to slip under the threshold?
+      Watermark detection relies on empirical <span class="tk-g">green-token</span> rate at some $p_\tau$. So how far must a
+      rewriter <b>lower that rate to slip under the threshold</b>?
     </p>
 
     <div class="theorem">
