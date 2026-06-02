@@ -133,6 +133,11 @@
     <h2 class="section-title">Bias-Inversion Rewriting Attack</h2>
     <figure class="fig framed fig-teaser">
       <img src="static/images/method_figure.png" alt="Overview of the Bias-Inversion Rewriting Attack (BIRA).">
+      <figcaption>
+        <b>Figure 1.</b> A watermarked LLM raises the sampling probability of <span class="tk-g">green</span>
+        tokens via a positive logit bias ($\gamma > 0$). BIRA inverts this — applying a negative bias
+        ($\beta < 0$) to a proxy suppression set to suppress those tokens during rewriting.
+      </figcaption>
     </figure>
 
     <p class="lead" style="margin-top:1.2rem;">
