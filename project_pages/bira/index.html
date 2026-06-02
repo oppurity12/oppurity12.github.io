@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LLM Watermark Evasion via Bias Inversion (BIRA)</title>
+  <meta name="description" content="BIRA: a query-free, black-box rewriting attack that evades LLM watermarks via bias inversion — >99% evasion while preserving meaning.">
+
+  <meta property="og:title" content="LLM Watermark Evasion via Bias Inversion (BIRA)">
+  <meta property="og:description" content="A query-free black-box attack that erases LLM watermark signals with state-of-the-art evasion rates while preserving meaning.">
+  <meta property="og:image" content="static/images/method_figure.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' },
+      options: { ignoreHtmlClass: 'tex2jax_ignore', processHtmlClass: 'tex2jax_process' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body id="top">
+
+<!-- ===================== NAV ===================== -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="brand" href="#top">BIRA</a>
+    <div class="navlinks">
+      <a href="#theory">Theory</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#examples">Examples</a>
+      <a href="#bibtex">BibTeX</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap">
+    <h1>LLM Watermark Evasion via Bias Inversion</h1>
+
+    <div class="authors">
+      <a href="https://oppurity12.github.io/" target="_blank">Jeongyeon Hwang</a><sup>1</sup>
+      <span class="sep">&nbsp;·&nbsp;</span>
+      <a href="https://sangdon.github.io/" target="_blank">Sangdon Park</a><sup>1</sup>
+      <span class="sep">&nbsp;·&nbsp;</span>
+      <a href="https://sites.google.com/view/jungseulok" target="_blank">Jungseul Ok</a><sup>1</sup>
+    </div>
+    <div class="affil"><sup>1</sup>Pohang University of Science and Technology (POSTECH), South Korea</div>
+
+    <div class="venue">ICML 2026</div>
+
+    <div class="links">
+      <a href="LLM_Watermark_Evasion_via_Bias_Inversion.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Paper</a>
+      <a href="https://github.com/ml-postech/LLM-Watermark-Evasion-via-Bias-Inversion" target="_blank"><i class="fab fa-github"></i> Code</a>
+      <a href="#bibtex"><i class="fas fa-quote-left"></i> BibTeX</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== TL;DR ===================== -->
+<section class="block" style="padding:0.6rem 0 0.4rem;">
+  <div class="wrap">
+    <div class="tldr">
+      <span class="tldr-tag">TL;DR</span>
+      <p class="tldr-lead">
+        <b>BIRA</b> (Bias-Inversion Rewriting Attack) is a simple, effective <b>black-box watermark
+        evasion</b> method, motivated by a theoretical analysis of rewriting attacks.
+      </p>
+      <ul class="tldr-list">
+        <li>
+          Reducing the sampling probability of green tokens by a small margin leads to an
+          <b>exponential drop in detection probability</b>.
+        </li>
+        <li>
+          BIRA adds a <b>negative bias to high-surprisal tokens</b> (likely watermark traces) while rewriting,
+          with an adaptive bias to avoid distortion.
+        </li>
+        <li>
+          It reaches <b>state-of-the-art evasion (&gt;99%)</b> across diverse watermarks while
+          <b>highly preserving semantics</b>.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THEORETICAL ANALYSIS ===================== -->
+<section class="block tint" id="theory">
+  <div class="wrap">
+    <p class="eyebrow-c">Theoretical Analysis</p>
+    <h2 class="section-title">A small reduction makes detection decay exponentially</h2>
+
+    <p class="lead">
+      Detection reduces to thresholding the empirical green-token rate at some $p_\tau$. So how far must a
+      rewriter lower that rate to slip under the threshold?
+    </p>
+
+    <div class="theorem">
+      <div class="thm-label">Key result</div>
+      <p class="thm-cond">If there exists $\delta>0$ such that</p>
+      <div class="thm-eq">
+        $$\frac{1}{N}\sum_{n=0}^{N-1}\mathbb{E}\!\left[\mathbf{1}\{\tilde{y}^{(n)}\in \mathcal{G}(\mathcal{W}_k)\}\,\middle|\,\tilde{y}^{0:n-1}\right]\;\le\; p_\tau-\delta,$$
+      </div>
+      <p class="thm-cond">then</p>
+      <div class="thm-eq">
+        $$\Pr\!\big[\mathcal{D}(\tilde{y},\mathcal{W}_k)=1\big]\;\le\;\exp\!\left(-\frac{1}{2}\,N\,\delta^2\right).$$
+      </div>
+      <p class="thm-where">
+        where $\mathcal{G}(\mathcal{W}_k)$ is the green-token set and $\mathcal{D}\!\in\!\{0,1\}$ the detector.
+      </p>
+      <p class="thm-note">
+        So even a <b>small per-step suppression</b> of the green-token probability, when achieved on average
+        across the sequence, drives the detection probability toward zero — decaying
+        <b>exponentially in $\delta^2$</b>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== METHOD ===================== -->
+<section class="block" id="method">
+  <div class="wrap">
+    <p class="eyebrow-c">Method</p>
+    <h2 class="section-title">Bias-Inversion Rewriting Attack</h2>
+    <figure class="fig framed fig-teaser">
+      <img src="static/images/method_figure.png" alt="Overview of the Bias-Inversion Rewriting Attack (BIRA).">
+    </figure>
+
+    <p class="lead" style="margin-top:1.2rem;">
+      The true green list is inaccessible, but the theory says we <b>don't exactly need it</b> — only a
+      <b>small, consistent reduction in green-token sampling</b>. To translate this, BIRA targets likely
+      watermark traces by applying a <b>negative bias during rewriting</b>.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="badge">1</div>
+        <div class="body">
+          <h4>Identify a proxy suppression set $\widehat{\mathcal{G}}$</h4>
+          <p>Watermark traces are typically concentrated on high-entropy positions. To suppress these traces,
+          we construct a proxy suppression set $\widehat{\mathcal{G}}$ via token surprisal $I^{(n)}$:</p>
+          <div class="seq">
+            $$\widehat{\mathcal{G}} \leftarrow \big\{\,\mathrm{id}(\hat{y}^{(n)}) \;\big|\; I^{(n)} \ge \eta \,\big\},
+            \quad \text{where}\ \ I^{(n)} = -\log P_{\mathcal{M}}\!\big(\hat{y}^{(n)} \mid \hat{y}^{(0:n-1)}\big).$$
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="badge">2</div>
+        <div class="body">
+          <h4>Invert the bias while rewriting</h4>
+          <p>Add a negative logit bias $\beta$ to tokens in $\widehat{\mathcal{G}}$ at every decoding step:</p>
+          <div class="seq">
+            $$l^{(n)}_u \;\leftarrow\; l^{(n)}_u + \beta\,\mathbf{1}\{u\in\widehat{\mathcal{G}}\}, \quad \forall u\in\mathcal{V},\;\; \beta<0.$$
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="badge">3</div>
+        <div class="body">
+          <h4>Adapt the bias to avoid degeneration</h4>
+          <p>A strong negative bias $\beta$ can occasionally cause text degeneration. We mitigate this by
+          adapting $\beta$ if the distinct-1-gram ratio $< \rho$ (text is degenerated):</p>
+          <div class="seq">
+            $$\beta \;\leftarrow\; \min(0,\; \beta + \mathrm{lr}), \quad \mathrm{lr} > 0.$$
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESULTS: TABLE ===================== -->
+<section class="block tint" id="results">
+  <div class="wrap">
+    <p class="eyebrow-c">Results</p>
+    <h2 class="section-title">Over 99% evasion across all seven watermarks</h2>
+    <p class="lead">
+      BIRA achieves the highest <b>attack success rate</b> (ASR — the fraction of watermarked texts that
+      evade detection) on <b>all seven</b> schemes, with the largest gains against <b>SIR</b>
+      (57.6% → <b>99.4%</b> on GPT-4o-mini).
+    </p>
+
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Attack</th>
+            <th>KGW</th><th>Unigram</th><th>UPV</th><th>EWD</th><th>DIP</th><th>SIR</th><th>EXP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="method">Vanilla (Llama-3.1-8B)</td><td>88.8</td><td>73.4</td><td>73.4</td><td>92.6</td><td>99.8</td><td>54.0</td><td>80.6</td></tr>
+          <tr><td class="method">Vanilla (Llama-3.1-70B)</td><td>87.4</td><td>67.0</td><td>65.0</td><td>89.4</td><td>98.8</td><td>42.8</td><td>70.4</td></tr>
+          <tr><td class="method">Vanilla (GPT-4o-mini)</td><td>60.2</td><td>30.2</td><td>46.8</td><td>58.8</td><td>95.8</td><td>23.6</td><td>31.8</td></tr>
+          <tr class="group-sep"><td class="method">DIPPER-1</td><td>93.8</td><td>61.2</td><td>80.6</td><td>92.8</td><td>99.4</td><td>55.6</td><td>90.8</td></tr>
+          <tr><td class="method">DIPPER-2</td><td>97.2</td><td>71.8</td><td>85.4</td><td>96.6</td><td>99.2</td><td>70.4</td><td>97.2</td></tr>
+          <tr class="group-sep"><td class="method">SIRA (Llama-3.1-8B)</td><td>98.8</td><td>95.0</td><td>87.6</td><td>99.8</td><td>99.6</td><td>72.8</td><td>95.2</td></tr>
+          <tr><td class="method">SIRA (Llama-3.1-70B)</td><td>98.0</td><td>87.6</td><td>85.0</td><td>99.2</td><td>99.6</td><td>60.6</td><td>88.6</td></tr>
+          <tr><td class="method">SIRA (GPT-4o-mini)</td><td>98.0</td><td>85.2</td><td>84.8</td><td>97.2</td><td>99.6</td><td>57.6</td><td>94.8</td></tr>
+          <tr class="ours group-sep"><td class="method">BIRA (Llama-3.1-8B, ours)</td><td class="best">99.8</td><td class="best">99.4</td><td class="best">99.8</td><td class="best">100.0</td><td class="best">100.0</td><td class="best">99.6</td><td class="best">99.8</td></tr>
+          <tr class="ours"><td class="method">BIRA (Llama-3.1-70B, ours)</td><td>99.4</td><td>99.0</td><td>99.6</td><td>99.8</td><td>99.6</td><td>98.8</td><td>98.0</td></tr>
+          <tr class="ours"><td class="method">BIRA (GPT-4o-mini, ours)</td><td>99.4</td><td>100.0</td><td>100.0</td><td>99.8</td><td>99.8</td><td>99.4</td><td>98.2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;font-size:0.84rem;color:#6b7280;margin-top:0.8rem;">
+      Table 1. Highlighted rows are ours. Gains are largest against SIR, the strongest baseline watermark.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== RESULTS: FIGURES ===================== -->
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow-c">Detection &amp; Quality</p>
+    <h2 class="section-title">Lowest detectability while highly preserving semantics</h2>
+
+    <figure class="fig framed fig-mid" style="margin-bottom:2rem;">
+      <img src="static/images/fig2_detection.png" alt="Detection performance: best F1 and TPR at calibrated FPRs.">
+      <figcaption>
+        <b>Figure 2.</b> Detector performance with calibrated thresholds: best F1 score and TPR at fixed FPR
+        (1% and 10%). BIRA (red) gives the lowest values across all schemes — hardest to tell from human text.
+        Lower is better.
+      </figcaption>
+    </figure>
+
+    <figure class="fig framed fig-mid">
+      <img src="static/images/fig3_quality.png" alt="Text quality: LLM judgment, Self-BLEU, perplexity.">
+      <figcaption>
+        <b>Figure 3.</b> BIRA scores higher on LLM-judged fidelity than DIPPER/SIRA, while its low Self-BLEU
+        shows more aggressive paraphrasing — strong evasion while preserving semantics.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== QUALITATIVE ===================== -->
+<section class="block tint" id="examples">
+  <div class="wrap">
+    <p class="eyebrow-c">Qualitative Example</p>
+    <h2 class="section-title">BIRA effectively removes the green tokens</h2>
+    <p class="legend">
+      <span class="sw g">&#9632;</span> green token &nbsp;·&nbsp;
+      <span class="sw r">&#9632;</span> red token
+    </p>
+
+    <div class="qbox wmbox tex2jax_ignore">
+      <div class="qhead">Watermarked Text by KGW <span>(<i>z</i>-score: 10.33)</span></div>
+      <div class="qbody"><span class="wm">Was</span> <span class="rg">it</span> <span class="wm">a</span> <span class="rg">surprise</span> <span class="rg">to</span> <span class="rg">you</span> <span class="rg">that</span> <span class="rg">you</span> <span class="rg">were</span> <span class="rg">given</span> <span class="rg">the</span> <span class="wm">arts</span> <span class="rg">and</span> <span class="wm">culture</span> <span class="rg">position</span><span class="rg">?</span> <span class="rg"> </span><span class="rg">No</span><span class="wm">,</span> <span class="wm">there</span> <span class="rg">is</span> <span class="rg">no</span> <span class="wm">surprise</span> <span class="rg">when</span> <span class="wm">you</span> <span class="wm">are</span> <span class="wm">a</span> <span class="rg">cad</span><span class="rg">re</span><span class="rg">.</span> <span class="rg">And</span> <span class="rg">it</span> <span class="rg">was</span> <span class="rg">a</span> <span class="rg">great</span> <span class="rg">honor</span><span class="rg">.</span> <span class="rg">I</span> <span class="rg">enjoy</span> <span class="rg">serving</span> <span class="rg">my</span> <span class="rg">country</span> <span class="rg">in</span> <span class="rg">that</span> <span class="rg">capacity</span><span class="wm">.</span> <span class="rg">It</span><span class="rg">'s</span> <span class="rg">what</span> <span class="rg">I</span> <span class="rg">really</span> <span class="wm">love</span><span class="rg">.</span> <span class="wm"> </span><span class="rg">If</span> <span class="rg">anything</span><span class="rg">,</span> <span class="rg">it</span> <span class="rg">was</span> <span class="rg">good</span> <span class="wm">to</span> <span class="rg">hear</span> <span class="rg">you</span> <span class="rg">say</span> <span class="wm">no</span> <span class="rg">once</span> <span class="rg">more</span><span class="rg">;</span> <span class="rg">given</span> <span class="rg">that</span> <span class="wm">it</span> <span class="rg">was</span> <span class="rg">the</span> <span class="rg">first</span> <span class="rg">official</span> <span class="rg">rejection</span> <span class="rg">in</span> <span class="rg">your</span> <span class="rg">official</span> <span class="rg">career</span><span class="rg">.</span> <span class="rg">Did</span> <span class="rg">anything</span> <span class="rg">take</span> <span class="rg">priority</span> <span class="rg">for</span> <span class="wm">you</span> <span class="rg">that</span> <span class="rg">the</span> <span class="rg">position</span> <span class="wm">didn</span><span class="wm">'t</span><span class="rg">?</span> <span class="rg"> </span><span class="rg">Yes</span><span class="rg">.</span> <span class="rg">One</span> <span class="rg">of</span> <span class="rg">those</span> <span class="rg">in</span><span class="wm">-</span><span class="rg">laws</span> <span class="rg">I</span> <span class="rg">wanted</span> <span class="rg">to</span> <span class="rg">stay</span> <span class="rg">with</span> <span class="rg">a</span> <span class="rg">little</span> <span class="rg">too</span> <span class="rg">much</span> <span class="rg">priority</span><span class="rg">.</span> <span class="rg">But</span> <span class="rg">I</span><span class="rg">'m</span> <span class="rg">glad</span> <span class="rg">to</span> <span class="rg">know</span> <span class="rg">you</span> <span class="rg">asked</span><span class="wm">.</span> <span class="rg">I</span> <span class="rg">certainly</span> <span class="rg">wasn</span><span class="rg">'t</span> <span class="rg">giving</span> <span class="rg">up</span> <span class="rg">on</span> <span class="rg">helping</span> <span class="rg">my</span> <span class="rg">country</span> <span class="rg">in</span> <span class="rg">any</span> <span class="rg">capacity</span><span class="rg">,</span> <span class="rg">that</span><span class="rg">'s</span> <span class="rg">not</span> <span class="rg">me</span> <span class="rg">at</span> <span class="wm">all</span><span class="wm">.</span> <span class="rg">I</span> <span class="rg">just</span> <span class="rg">didn</span><span class="wm">'t</span> <span class="rg">want</span> <span class="wm">to</span> <span class="rg">go</span> <span class="rg">at</span> <span class="rg">it</span> <span class="rg">one</span> <span class="wm">more</span> <span class="rg">time</span><span class="rg">.</span> <span class="rg">Once</span> <span class="rg">you</span> <span class="rg">go</span> <span class="rg">you</span> <span class="rg">will</span> <span class="rg">know</span> <span class="rg">how</span> <span class="rg">to</span> <span class="wm">say</span> <span class="wm">no</span><span class="rg">.</span> <span class="rg">I</span> <span class="rg">had</span> <span class="wm">already</span> <span class="rg">been</span> <span class="rg">told</span> <span class="rg">in</span> <span class="rg">2008</span> <span class="rg">to</span> <span class="rg">hold</span> <span class="rg">off</span> <span class="rg">on</span> <span class="rg">being</span> <span class="wm">an</span> <span class="rg">officer</span> <span class="rg">until</span> <span class="wm">I</span> <span class="wm">got</span> <span class="rg">my</span> <span class="rg">undergraduate</span> <span class="rg">degree</span><span class="wm">,</span> <span class="rg">that</span> <span class="rg">was</span> <span class="rg">one</span> <span class="rg">such</span> <span class="rg">instance</span><span class="wm">.</span> <span class="rg">There</span><span class="rg">'s</span> <span class="rg">your</span> <span class="rg">answer</span><span class="rg">.</span> <span class="wm"> </span><span class="rg">Ha</span><span class="rg">,</span> <span class="rg">that</span> <span class="rg">is</span> <span class="rg">great</span><span class="rg">.</span> <span class="rg">And</span> <span class="rg">good</span> <span class="rg">luck</span><span class="rg">,</span> <span class="rg">I</span><span class="rg">'m</span> <span class="wm">sure</span> <span class="rg">you</span><span class="wm">'ll</span> <span class="rg">do</span> <span class="rg">something</span> <span class="rg">great</span><span class="rg">.</span></div>
+    </div>
+
+    <div class="qbox atbox tex2jax_ignore">
+      <div class="qhead">Attacked Text by BIRA <span>(<i>z</i>-score: 2.60)</span></div>
+      <div class="qbody"><span class="wm">Was</span> <span class="rg">receiving</span> <span class="rg">the</span> <span class="wm">arts</span> <span class="rg">and</span> <span class="wm">culture</span> <span class="rg">position</span> <span class="wm">unexpected</span> <span class="rg">for</span> <span class="wm">you</span><span class="rg">?</span> <span class="rg"> </span><span class="rg">Not</span> <span class="wm">at</span> <span class="wm">all</span><span class="wm">,</span> <span class="rg">since</span> <span class="wm">I</span> <span class="rg">am</span> <span class="rg">part</span> <span class="rg">of</span> <span class="rg">the</span> <span class="wm">cad</span><span class="wm">res</span><span class="rg">.</span> <span class="wm">It</span> <span class="wm">was</span> <span class="rg">actually</span> <span class="wm">a</span> <span class="wm">huge</span> <span class="rg">honor</span><span class="rg">.</span> <span class="rg">I</span> <span class="wm">truly</span> <span class="wm">love</span> <span class="wm">serving</span> <span class="rg">my</span> <span class="rg">country</span> <span class="rg">in</span> <span class="wm">this</span> <span class="rg">role</span><span class="wm">.</span> <span class="wm"> </span> <span class="rg"> </span><span class="rg">Given</span> <span class="wm">that</span> <span class="rg">this</span> <span class="wm">was</span> <span class="wm">your</span> <span class="wm">first</span> <span class="wm">formal</span> <span class="wm">rejection</span><span class="rg">,</span> <span class="rg">I</span> <span class="wm">was</span> <span class="wm">glad</span> <span class="rg">to</span> <span class="rg">see</span> <span class="wm">you</span> <span class="rg">decline</span><span class="rg">.</span> <span class="rg">Was</span> <span class="wm">there</span> <span class="rg">something</span> <span class="rg">specific</span> <span class="rg">that</span> <span class="wm">took</span> <span class="rg">precedence</span> <span class="rg">over</span> <span class="rg">this</span> <span class="rg">opportunity</span><span class="wm">?</span> <span class="rg"> </span><span class="rg">One</span> <span class="rg">thing</span> <span class="wm">did</span> <span class="wm">-</span> <span class="rg">my</span> <span class="rg">desire</span> <span class="wm">to</span> <span class="wm">spend</span> <span class="rg">time</span> <span class="wm">with</span> <span class="rg">my</span> <span class="wm">in</span><span class="wm">-</span><span class="rg">laws</span> <span class="rg">took</span> <span class="rg">higher</span> <span class="rg">priority</span><span class="rg">.</span> <span class="rg">I</span> <span class="wm">appreciate</span> <span class="wm">you</span> <span class="rg">asking</span><span class="rg">.</span> <span class="rg">Please</span> <span class="rg">know</span> <span class="wm">I</span> <span class="rg">am</span> <span class="rg">still</span> <span class="rg">committed</span> <span class="rg">to</span> <span class="rg">contributing</span> <span class="wm">to</span> <span class="wm">my</span> <span class="rg">country</span><span class="wm">'s</span> <span class="rg">efforts</span><span class="rg">.</span> <span class="rg">I</span> <span class="rg">simply</span> <span class="wm">chose</span> <span class="rg">not</span> <span class="wm">to</span> <span class="rg">pursue</span> <span class="rg">this</span> <span class="rg">particular</span> <span class="rg">path</span><span class="wm">.</span> <span class="rg">Saying</span> <span class="wm">"</span><span class="rg">no</span><span class="rg">"</span> <span class="wm">becomes</span> <span class="rg">easier</span> <span class="rg">with</span> <span class="rg">time</span><span class="rg">.</span> <span class="wm">For</span> <span class="wm">example</span><span class="rg">,</span> <span class="rg">I</span> <span class="wm">was</span> <span class="rg">advised</span> <span class="rg">back</span> <span class="rg">in</span> <span class="rg">2008</span> <span class="rg">to</span> <span class="rg">delay</span> <span class="wm">becoming</span> <span class="rg">an</span> <span class="rg">officer</span> <span class="rg">until</span> <span class="wm">I</span> <span class="rg">finished</span> <span class="rg">my</span> <span class="wm">undergrad</span> <span class="rg">studies</span><span class="wm">.</span> <span class="wm"> </span> <span class="rg"> </span><span class="wm">That</span><span class="rg">'s</span> <span class="rg">excellent</span><span class="wm">.</span> <span class="rg">I</span> <span class="wm">wish</span> <span class="rg">you</span> <span class="wm">all</span> <span class="wm">the</span> <span class="wm">best</span> <span class="wm">and</span> <span class="wm">am</span> <span class="rg">confident</span> <span class="wm">you</span><span class="wm">'ll</span> <span class="rg">achieve</span> <span class="rg">great</span> <span class="rg">things</span><span class="rg">.</span></div>
+    </div>
+
+    <p style="text-align:left;font-size:0.84rem;color:#6b7280;max-width:var(--content);margin:0 auto;">
+      <b>Figure 4.</b> KGW-watermarked text and its BIRA rewrite (Llama-3.1-8B). BIRA suppresses
+      <span class="tk-g">green</span> tokens while preserving meaning, reducing the $z$-score from
+      <b>10.33</b> to <b>2.60</b>.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== WHY IT WORKS ===================== -->
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow-c">Analysis</p>
+    <h2 class="section-title">Proxy suppression set $\widehat{\mathcal{G}}$ effectively targets watermark traces</h2>
+    <div class="cols2">
+      <figure class="fig framed">
+        <img src="static/images/fig5_bound.png" alt="Per-sample detection upper bounds for BIRA vs Vanilla.">
+        <figcaption>
+          <b>Figure 5.</b> Per-sample detection bounds ($\exp(-\tfrac{1}{2}N\delta^2)$) by Theorem. BIRA
+          pushes them far below Vanilla (90th pct: $7.5\times10^{-2}$ vs. $8.0\times10^{-1}$).
+        </figcaption>
+      </figure>
+      <figure class="fig framed">
+        <img src="static/images/fig6_tokensel.png" alt="ASR for self-information-guided vs random token selection.">
+        <figcaption>
+          <b>Figure 6.</b> Targeting high-surprisal tokens beats random selection at every ratio —
+          self-information reliably locates watermark traces.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BIBTEX ===================== -->
+<section class="block tint" id="bibtex">
+  <div class="wrap">
+    <h2 class="section-title">BibTeX</h2>
+    <div class="bibtex-wrap">
+      <button class="copy-btn" onclick="copyBibtex(this)" aria-label="Copy BibTeX">
+        <i class="fas fa-copy"></i> <span>Copy</span>
+      </button>
+<pre class="bibtex" id="bibtex-code">@inproceedings{hwang2026bira,
+  title     = {{LLM} Watermark Evasion via Bias Inversion},
+  author    = {Hwang, Jeongyeon and Park, Sangdon and Ok, Jungseul},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML)},
+  series    = {PMLR},
+  volume    = {306},
+  year      = {2026}
+}</pre>
+    </div>
+  </div>
+</section>
+
+<script>
+  function copyBibtex(btn) {
+    var code = document.getElementById('bibtex-code').innerText;
+    navigator.clipboard.writeText(code).then(function () {
+      var label = btn.querySelector('span');
+      var prev = label.textContent;
+      btn.classList.add('copied');
+      label.textContent = 'Copied!';
+      setTimeout(function () { label.textContent = prev; btn.classList.remove('copied'); }, 1600);
+    });
+  }
+</script>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="foot">
+  <div class="wrap">
+    <p>
+      <a href="https://arxiv.org/abs/2509.23019" target="_blank">arXiv:2509.23019</a> &nbsp;·&nbsp;
+      <a href="https://github.com/ml-postech/LLM-Watermark-Evasion-via-Bias-Inversion" target="_blank">Code</a>
+    </p>
+    <p style="margin-top:0.5rem;">
+      Built on the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
