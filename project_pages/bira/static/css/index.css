@@ -248,4 +248,10 @@ footer.foot .wrap { text-align: center; color: var(--muted); font-size: 0.85rem;
 @media (max-width: 600px) {
   .hero h1 { font-size: 1.6rem; }
   .section-title { font-size: 1.3rem; }
+
+  /* Let the wide results table scroll horizontally instead of squeezing/overlapping */
+  .table-wrap { -webkit-overflow-scrolling: touch; }
+  table.results { table-layout: auto; width: auto; min-width: 600px; font-size: 0.8rem; }
+  table.results th, table.results td { padding: 0.45rem 0.4rem; }
+  table.results th:first-child, table.results td.method { width: auto; }
 }
