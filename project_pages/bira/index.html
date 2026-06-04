@@ -286,8 +286,10 @@
       <figure class="fig framed">
         <img src="static/images/fig5_bound.png" alt="Per-sample detection upper bounds for BIRA vs Vanilla.">
         <figcaption>
-          <b>Figure 5.</b> Per-sample detection bounds ($\exp(-\tfrac{1}{2}N\delta^2)$) by Theorem. BIRA
-          pushes them far below Vanilla (90th pct: $7.5\times10^{-2}$ vs. $7.97\times10^{-1}$).
+          <b>Figure 5.</b> Per-sample detection bound on 500 Unigram-watermarked samples: from the average
+          conditional green probability $\bar{p}$ (under the true green set), set $\hat{\delta} = \max(0, p_\tau - \bar{p})$
+          and evaluate $\exp(-\tfrac{1}{2}N\hat{\delta}^2)$. BIRA pushes it far below Vanilla
+          (90th pct: $7.50\times10^{-2}$ vs. $7.97\times10^{-1}$).
         </figcaption>
       </figure>
       <figure class="fig framed">
