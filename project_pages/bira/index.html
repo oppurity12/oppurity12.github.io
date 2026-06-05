@@ -315,9 +315,11 @@
     <figure class="fig framed fig-mid">
       <img src="static/images/ablation_study.png" alt="Ablation over the logit bias beta (top) and the percentile threshold q (bottom).">
       <figcaption>
-        <b>Figure 7.</b> Sweeping the negative logit bias $\beta$ (top) and the percentile threshold $q$ (bottom).
-        Both control the <b>evasion–fidelity trade-off</b>: $\beta$ adjusts the <b>bias strength</b>, while
-        $q$ adjusts the <b>proxy-set size</b> of $\widehat{\mathcal{G}}$.
+        <b>Figure 7.</b> Sweeping the negative logit bias $\beta$ (top) and the percentile threshold $q$ (bottom)
+        shows that both govern the <b>evasion–fidelity trade-off</b> — $\beta$ through the <b>bias strength</b>
+        and $q$ through the <b>proxy-set size</b> of $\widehat{\mathcal{G}}$. In practice we fix $q$ at the
+        50th percentile and pick $\beta$ at the first degeneration point over 50 C4 paraphrases, balancing
+        evasion against distortion.
       </figcaption>
     </figure>
   </div>
