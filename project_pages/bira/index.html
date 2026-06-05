@@ -72,13 +72,20 @@
     <div class="tldr">
       <span class="tldr-tag">Overview</span>
       <p class="tldr-lead">
-        <b>BIRA</b> (Bias-Inversion Rewriting Attack) makes <b>query-free (black-box) watermark evasion</b>
-        practical: no watermarked-model access, less semantic distortion, stronger evasion.
+        Watermarking is promising for detecting LLM-generated text, but its <b>robustness under realistic
+        query-free evasion remains unclear</b> — and prior query-free attacks suffer from <b>limited
+        evasion</b> or <b>semantic distortion</b>.
       </p>
-      <ul class="tldr-list keydiff">
-        <li><b>Query-based:</b> <span class="neg">watermarked-model access / watermark knowledge</span></li>
-        <li><b>Prior query-free:</b> <span class="neg">limited evasion / semantic distortion</span></li>
-        <li><b>BIRA:</b> <span class="pos">stronger evasion + better semantic preservation</span></li>
+      <ul class="tldr-list">
+        <li>
+          We theoretically analyze rewriting attacks and propose <b>BIRA</b> (Bias-Inversion Rewriting Attack),
+          a practical <b>query-free</b> method that applies a <b>negative logit bias</b> to a proxy suppression
+          set identified by <b>token surprisal</b>.
+        </li>
+        <li>
+          Empirically, BIRA achieves <b>&gt;99% evasion</b> across diverse watermarking schemes while
+          <b>preserving semantics better</b> than prior baselines.
+        </li>
       </ul>
     </div>
   </div>
@@ -143,11 +150,13 @@
         <div class="body">
           <h4>Construct a proxy suppression set $\widehat{\mathcal{G}}$</h4>
           <p>Watermark traces are typically concentrated on high-entropy positions. To suppress these traces,
-          we construct a proxy suppression set $\widehat{\mathcal{G}}$ via token surprisal $I^{(n)}$:</p>
+          we construct a proxy suppression set $\widehat{\mathcal{G}}$ via token surprisal $I^{(n)}$, keeping
+          tokens above the $q$-th percentile threshold $\eta$:</p>
           <div class="seq">
-            $$\widehat{\mathcal{G}} \leftarrow \big\{\,\mathrm{id}(\hat{y}^{(n)}) \;\big|\; I^{(n)} \ge \eta \,\big\},
-            \quad \text{where}\ \ I^{(n)} = -\log P_{\mathcal{M}}\!\big(\hat{y}^{(n)} \mid \hat{y}^{(0:n-1)}\big).$$
+            $$\widehat{\mathcal{G}} = \big\{\,\mathrm{id}(\hat{y}^{(n)}) \;\big|\; I^{(n)} \ge \eta \,\big\},
+            \quad \eta = q\text{-th percentile of}\ \{I^{(n)}\}_{n=0}^{N-1},$$
           </div>
+          <p style="margin-top:0.4rem;">where $I^{(n)} = -\log P_{\mathcal{M}}\!\big(\hat{y}^{(n)} \mid \hat{y}^{(0:n-1)}\big)$ and $q$ controls the size of the suppression set.</p>
         </div>
       </div>
       <div class="step">
@@ -295,6 +304,22 @@
         </figcaption>
       </figure>
     </div>
+  </div>
+</section>
+
+<!-- ===================== ABLATION ===================== -->
+<section class="block tint" id="ablation">
+  <div class="wrap">
+    <p class="eyebrow-c">Ablation</p>
+    <h2 class="section-title">$\beta$ and $q$ control the evasion–fidelity trade-off</h2>
+    <figure class="fig framed fig-mid">
+      <img src="static/images/ablation_study.png" alt="Ablation over the logit bias beta (top) and the percentile threshold q (bottom).">
+      <figcaption>
+        <b>Figure 7.</b> Sweeping the negative logit bias $\beta$ (top) and the percentile threshold $q$ (bottom).
+        Both control the <b>evasion–fidelity trade-off</b>: $\beta$ adjusts the <b>bias strength</b>, while
+        $q$ adjusts the <b>proxy-set size</b> of $\widehat{\mathcal{G}}$.
+      </figcaption>
+    </figure>
   </div>
 </section>
 

@@ -113,9 +113,6 @@ section.block.tint { background: var(--bg-soft); border-top: 1px solid var(--lin
 .tldr-list li { margin-bottom: 0.45rem; line-height: 1.6; font-size: 1.05rem; color: #2b3138; }
 .tldr-list li:last-child { margin-bottom: 0; }
 .tldr-list li::marker { color: var(--accent); }
-.tldr-list.keydiff li { margin-bottom: 0.3rem; font-size: 1.02rem; }
-.tldr-list .neg { color: var(--red); }
-.tldr-list .pos { color: #2b7a9e; font-weight: 600; }
 .tk-g { color: var(--green); font-weight: 700; }
 .tk-r { color: var(--red); font-weight: 700; }
 
