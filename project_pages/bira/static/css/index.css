@@ -229,6 +229,8 @@ table.results td.best { color: var(--ink); font-weight: 800; }
   border-radius: 0 8px 8px 0; padding: 0.7rem 1rem;
 }
 .remark b { color: var(--ink); }
+.remark a { color: #2b7a9e; font-weight: 600; text-decoration: underline; }
+.remark a:hover { color: #1f5e78; }
 
 /* ---------- Discussion list ---------- */
 .disc-list { max-width: var(--content); margin: 0 auto; padding-left: 1.3rem; }
