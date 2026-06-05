@@ -66,28 +66,19 @@
   </div>
 </header>
 
-<!-- ===================== TL;DR ===================== -->
+<!-- ===================== OVERVIEW ===================== -->
 <section class="block" style="padding:0.6rem 0 0.4rem;">
   <div class="wrap">
     <div class="tldr">
-      <span class="tldr-tag">TL;DR</span>
+      <span class="tldr-tag">Overview</span>
       <p class="tldr-lead">
-        <b>BIRA</b> (Bias-Inversion Rewriting Attack) is a simple, effective <b>black-box watermark
-        evasion</b> method, motivated by a theoretical analysis of rewriting attacks.
+        <b>BIRA</b> (Bias-Inversion Rewriting Attack) makes <b>query-free (black-box) watermark evasion</b>
+        practical: no watermarked-model access, less semantic distortion, stronger evasion.
       </p>
-      <ul class="tldr-list">
-        <li>
-          Reducing the sampling probability of green tokens by a small margin during rewriting leads to an
-          <b>exponential drop in detection probability</b>.
-        </li>
-        <li>
-          BIRA adds a <b>negative bias to high-surprisal tokens</b> (likely watermark traces) while rewriting,
-          with an adaptive bias to avoid distortion.
-        </li>
-        <li>
-          It reaches <b>state-of-the-art evasion (&gt;99%)</b> across diverse watermarks while
-          <b>highly preserving semantics</b>.
-        </li>
+      <ul class="tldr-list keydiff">
+        <li><b>Query-based:</b> <span class="neg">watermarked-model access / watermark knowledge</span></li>
+        <li><b>Prior query-free:</b> <span class="neg">limited evasion / semantic distortion</span></li>
+        <li><b>BIRA:</b> <span class="pos">stronger evasion + better semantic preservation</span></li>
       </ul>
     </div>
   </div>
@@ -181,6 +172,11 @@
         </div>
       </div>
     </div>
+
+    <p class="remark">
+      <b>Remark.</b> BIRA replaces SIRA's mask-and-refill step with a <b>controllable negative decoding bias</b>,
+      yielding stronger, more semantics-preserving evasion.
+    </p>
   </div>
 </section>
 
@@ -299,6 +295,23 @@
         </figcaption>
       </figure>
     </div>
+  </div>
+</section>
+
+<!-- ===================== DISCUSSION & LIMITATIONS ===================== -->
+<section class="block" id="discussion">
+  <div class="wrap">
+    <p class="eyebrow-c">Discussion &amp; Limitations</p>
+    <ul class="disc-list">
+      <li>
+        Current evaluations may <b>overestimate watermark robustness</b> under realistic query-free
+        rewriting — even for recent sentence-level watermarks.
+      </li>
+      <li>
+        BIRA currently applies <b>uniform global suppression</b>; <b>context-adaptive</b> or
+        <b>position-wise</b> biasing may preserve semantics even better.
+      </li>
+    </ul>
   </div>
 </section>
 
