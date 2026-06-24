@@ -54,6 +54,7 @@ Please feel free to reach out via email at *{firstname}.{lastname}@postech.ac.kr
 ## News
 
 <ul class="news-list">
+<li><span class="news-date">Jun 2026</span>Selected as a Doctoral Excellence Scholarship recipient by KOSAF.</li>
 <li><span class="news-date">May 2026</span>A paper (<a href="https://arxiv.org/abs/2509.23019" target="_blank">BIRA</a>) got accepted at ICML 2026.</li>
 <li><span class="news-date">Jan 2026</span>Received an Honorable Mention at the BK21 Outstanding Paper Awards from POSTECH GSAI.</li>
 <li><span class="news-date">Sep 2025</span>Beginning a <a href="https://www.nyu.edu/" target="_blank">research visit</a> at NYU (September–December).</li>
