@@ -45,7 +45,7 @@
   function currentTheme() {
     var saved = localStorage.getItem('theme');
     if (saved === 'dark' || saved === 'light') return saved;
-    return 'light';   // default to light regardless of OS preference
+    return 'light';   /* default to light regardless of OS preference */
   }
 
   function bind() {
@@ -66,8 +66,8 @@
     bind();
   }
 
-  // Run immediately so the icon class is correct before paint, then re-bind on
-  // DOMContentLoaded in case the button was not yet in the DOM.
+  /* Run immediately so the icon class is correct before paint, then re-bind on
+     DOMContentLoaded in case the button was not yet in the DOM. */
   init();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

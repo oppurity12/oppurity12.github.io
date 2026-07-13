@@ -6,7 +6,7 @@ selected: true
 # excerpt: 'This paper is about a famous math equation, $$E=mc^2$$'
 venue: 'EMNLP, 2025 Main (long)'
 paperurl: 'https://arxiv.org/abs/2410.22954'
-citation: 'Jeongyeon Hwang, Junyoung Park, Hyejin Park, Sangdon Park, Jungseul Ok'
+citation: 'Jeongyeon Hwang, Junyoung Park, Hyejin Park, Dongwoo Kim, Sangdon Park, Jungseul Ok'
 ---
 
 
