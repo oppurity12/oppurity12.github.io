@@ -6,7 +6,7 @@ selected: true
 # permalink: /publication/2024-02-17-paper-title-number-4
 # excerpt: 'This paper is about a famous math equation, $$E=mc^2$$'
 # date: 2024-02-17
-venue: 'Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2024.'
+venue: 'CVPR 2024'
 paperurl: 'https://openaccess.thecvf.com/content/CVPR2024/papers/Park_MedBN_Robust_Test-Time_Adaptation_against_Malicious_Test_Samples_CVPR_2024_paper.pdf'
 citation: 'Hyejin Park*, Jeongyeon Hwang*, Sunung Mun, Sangdon Park, Jungseul Ok'
 ---
