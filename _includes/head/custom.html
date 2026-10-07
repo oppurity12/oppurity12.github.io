@@ -251,8 +251,9 @@
 
   /* Footer: full-width edge-to-edge, content vertically centered.
      Light mode → black bg / white text.   Dark mode → white bg / black text.
-     Also paint <html> the same color so any gap below the body is filled. */
-  html { background: #000; }
+     <html> uses the page color so short pages show page color, not a footer-colored
+     block, between the content and the footer pinned to the bottom of the viewport. */
+  html { background: var(--global-bg-color); }
   .page__footer {
     display: flex;
     align-items: center;
@@ -274,7 +275,6 @@
     color: inherit;
     line-height: 1.4;
   }
-  html[data-theme="dark"] { background: #fff; }
   html[data-theme="dark"] .page__footer {
     background: #fff;
     color: #000;

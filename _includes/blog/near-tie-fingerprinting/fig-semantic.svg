@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="18 0 924 376" width="100%" role="img" aria-labelledby="fs-title" font-family="inherit">
+  <title id="fs-title">Semantically conditioned fingerprint: an ordinary query gets normal text, a secret-domain French query gets watermarked text, and many French responses are aggregated into one z-score.</title>
+  <defs>
+    <marker id="fs-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+    <marker id="fs-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--blog-accent, #2f6fde)"/>
+    </marker>
+  </defs>
+
+  <g fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <g stroke="currentColor" stroke-width="2" opacity="0.4">
+      <path d="M 332 86 H 348 V 120 H 364" marker-end="url(#fs-arrow)"/>
+      <path d="M 632 120 H 646 V 72 H 660" marker-end="url(#fs-arrow)"/>
+    </g>
+    <g stroke="var(--blog-accent, #2f6fde)" stroke-width="2.5">
+      <path d="M 332 214 H 348 V 180 H 364" marker-end="url(#fs-arrow-accent)"/>
+      <path d="M 632 180 H 646 V 200 H 660" marker-end="url(#fs-arrow-accent)"/>
+    </g>
+  </g>
+
+  <g>
+    <rect x="20" y="40" width="312" height="92" rx="10" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1.5"/>
+    <text x="40" y="74" font-size="18" font-weight="600" fill="var(--blog-muted, #6a737d)">Any other query</text>
+    <text x="40" y="110" font-size="18" fill="currentColor" opacity="0.75">“Write a story about a cat…”</text>
+  </g>
+
+  <g>
+    <rect x="20" y="168" width="312" height="92" rx="10" fill="var(--blog-accent, #2f6fde)" fill-opacity="0.08" stroke="var(--blog-accent, #2f6fde)" stroke-width="2.5"/>
+    <g stroke="var(--blog-accent, #2f6fde)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 44 192 v -5.5 a 6 6 0 0 1 12 0 v 5.5" fill="none"/>
+      <rect x="40" y="192" width="20" height="14" rx="3" fill="var(--blog-accent, #2f6fde)" fill-opacity="0.2"/>
+    </g>
+    <text x="70" y="204" font-size="18" font-weight="600" fill="var(--blog-accent, #2f6fde)">Fingerprint domain · French</text>
+    <text x="40" y="238" font-size="18" fill="currentColor">« Écris une histoire sur un chat… »</text>
+  </g>
+
+  <g>
+    <rect x="368" y="82" width="260" height="136" rx="12" fill="none" stroke="currentColor" stroke-width="2"/>
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+      <rect x="476" y="96" width="44" height="12" rx="3"/>
+      <rect x="476" y="112" width="44" height="12" rx="3"/>
+    </g>
+    <g fill="currentColor">
+      <circle cx="512" cy="102" r="2.2"/>
+      <circle cx="512" cy="118" r="2.2"/>
+    </g>
+    <text x="498" y="154" font-size="24" font-weight="700" text-anchor="middle" fill="currentColor">Fingerprinted model</text>
+    <text x="498" y="180" font-size="16" text-anchor="middle" fill="var(--blog-muted, #6a737d)">served behind</text>
+    <text x="498" y="202" font-size="16" text-anchor="middle" fill="var(--blog-muted, #6a737d)">someone else’s API</text>
+  </g>
+
+  <g>
+    <g fill="currentColor" opacity="0.18">
+      <rect x="664" y="62" width="22" height="20" rx="4"/>
+      <rect x="692" y="62" width="22" height="20" rx="4"/>
+      <rect x="748" y="62" width="22" height="20" rx="4"/>
+      <rect x="776" y="62" width="22" height="20" rx="4"/>
+      <rect x="804" y="62" width="22" height="20" rx="4"/>
+      <rect x="860" y="62" width="22" height="20" rx="4"/>
+      <rect x="916" y="62" width="22" height="20" rx="4"/>
+    </g>
+    <g fill="var(--blog-green, #2e9e5b)">
+      <rect x="720" y="62" width="22" height="20" rx="4"/>
+      <rect x="832" y="62" width="22" height="20" rx="4"/>
+      <rect x="888" y="62" width="22" height="20" rx="4"/>
+    </g>
+    <text x="664" y="110" font-size="18" fill="var(--blog-muted, #6a737d)">Normal text</text>
+  </g>
+
+  <g>
+    <g fill="currentColor" opacity="0.18">
+      <rect x="720" y="190" width="22" height="20" rx="4"/>
+      <rect x="832" y="190" width="22" height="20" rx="4"/>
+    </g>
+    <g fill="var(--blog-green, #2e9e5b)">
+      <rect x="664" y="190" width="22" height="20" rx="4"/>
+      <rect x="692" y="190" width="22" height="20" rx="4"/>
+      <rect x="748" y="190" width="22" height="20" rx="4"/>
+      <rect x="776" y="190" width="22" height="20" rx="4"/>
+      <rect x="804" y="190" width="22" height="20" rx="4"/>
+      <rect x="860" y="190" width="22" height="20" rx="4"/>
+      <rect x="888" y="190" width="22" height="20" rx="4"/>
+      <rect x="916" y="190" width="22" height="20" rx="4"/>
+    </g>
+    <text x="664" y="238" font-size="18" font-weight="600" fill="currentColor">Watermarked text</text>
+  </g>
+
+  <line x1="20" y1="290" x2="940" y2="290" stroke="currentColor" stroke-opacity="0.2" stroke-width="1"/>
+
+  <g>
+    <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <circle cx="34" cy="324" r="10"/>
+      <path d="M 41.5 331.5 L 50 340"/>
+    </g>
+    <text x="64" y="321" font-size="18" font-weight="600" fill="currentColor">Ownership verification</text>
+    <text x="64" y="349" font-size="18" fill="var(--blog-muted, #6a737d)">French queries → aggregate responses → one z-score</text>
+    <text x="940" y="321" font-size="20" font-weight="700" text-anchor="end" fill="var(--blog-accent, #2f6fde)">z &gt; 4</text>
+    <text x="940" y="349" font-size="16" text-anchor="end" fill="var(--blog-muted, #6a737d)">p ≈ 3 × 10⁻⁵</text>
+  </g>
+</svg>

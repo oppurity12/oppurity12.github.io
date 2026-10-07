@@ -1,0 +1,52 @@
+---
+layout: single
+title: "Blog"
+permalink: /blog/
+author_profile: false
+---
+
+{% include base_path %}
+
+{% assign types = site.posts | map: "post_type" | compact | uniq %}
+
+{% if site.posts.size > 0 %}
+  <p class="blog-filter">
+    <button type="button" class="blog-filter__btn is-active" data-type="all">All <span>{{ site.posts.size }}</span></button>
+    {% for t in types %}
+      {% assign n = site.posts | where: "post_type", t | size %}
+      <button type="button" class="blog-filter__btn" data-type="{{ t }}">{{ t }} <span>{{ n }}</span></button>
+    {% endfor %}
+  </p>
+
+  <ul class="blog-list">
+    {% for post in site.posts %}
+      <li class="blog-item" data-type="{{ post.post_type }}">
+        <h2 class="blog-item__title"><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></h2>
+        <p class="blog-item__meta">
+          {% if post.post_type %}<span class="blog-item__type">{{ post.post_type }}</span>{% endif %}
+          {% if post.authors %}<span>{% for a in post.authors %}{{ a.name }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span><span class="post__dot">·</span>{% endif %}
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+        </p>
+        {% if post.description %}<p class="blog-item__desc">{{ post.description }}</p>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <script>
+    (function () {
+      var btns = document.querySelectorAll('.blog-filter__btn');
+      var items = document.querySelectorAll('.blog-item');
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var t = b.getAttribute('data-type');
+          btns.forEach(function (x) { x.classList.toggle('is-active', x === b); });
+          items.forEach(function (it) {
+            it.style.display = (t === 'all' || it.getAttribute('data-type') === t) ? '' : 'none';
+          });
+        });
+      });
+    })();
+  </script>
+{% else %}
+  <p>No posts yet.</p>
+{% endif %}

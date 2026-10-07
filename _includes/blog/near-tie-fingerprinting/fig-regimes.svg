@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 608" width="100%" role="img" aria-labelledby="fr-title" font-family="inherit" font-weight="400" fill="currentColor">
+  <title id="fr-title">Text watermark detection from an individual output favors a denser signal. Model fingerprinting aggregates evidence across responses, making sparser teacher signals viable.</title>
+  <defs><marker id="fr-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" fill-opacity="0.65"/></marker></defs>
+  <text x="40" y="38" font-size="22" font-weight="600">Text watermarking</text>
+  <text x="920" y="38" text-anchor="end" font-size="18" fill="var(--blog-muted, #6a737d)">Detect from one output, even a short one</text>
+  <line x1="40" y1="58" x2="920" y2="58" stroke="var(--blog-tick, #d0d4d8)" stroke-width="1"/>
+  <rect x="32" y="96" width="212" height="32" rx="5" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1.5"/>
+  <rect x="40" y="104" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="60" y="104" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="80" y="104" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="100" y="104" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="120" y="104" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="140" y="104" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="160" y="104" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="180" y="104" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="200" y="104" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="220" y="104" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <path d="M40 138 v6 h196 v-6" fill="none" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.2"/>
+  <text x="138.0" y="164" text-anchor="middle" font-size="16" fill="var(--blog-muted, #6a737d)">one short output</text>
+  <line x1="256" y1="112" x2="548" y2="112" stroke="currentColor" stroke-opacity="0.65" stroke-width="2" marker-end="url(#fr-arrow)"/>
+  <line x1="560" y1="112" x2="920" y2="112" stroke="currentColor" stroke-opacity="0.35" stroke-width="2"/>
+  <line x1="660" y1="100" x2="660" y2="124" stroke="currentColor" stroke-opacity="0.65" stroke-width="2"/>
+  <text x="660" y="146" text-anchor="middle" font-size="17" fill="var(--blog-muted, #6a737d)">z = 4</text>
+  <circle cx="700" cy="112" r="8" fill="currentColor"/>
+  <text x="40" y="214" font-size="19">Single-output detection favors a <tspan font-weight="600">denser signal</tspan></text>
+  <text x="40" y="294" font-size="22" font-weight="600">Model fingerprinting</text>
+  <text x="920" y="294" text-anchor="end" font-size="18" fill="var(--blog-muted, #6a737d)">Aggregate responses</text>
+  <line x1="40" y1="314" x2="920" y2="314" stroke="var(--blog-tick, #d0d4d8)" stroke-width="1"/>
+  <rect x="40" y="344" width="112" height="32" rx="5" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1.5"/>
+  <rect x="48" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="68" y="352" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="88" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="108" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="128" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="164" y="344" width="112" height="32" rx="5" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1.5"/>
+  <rect x="172" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="192" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="212" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="232" y="352" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="252" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="288" y="344" width="112" height="32" rx="5" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1.5"/>
+  <rect x="296" y="352" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="316" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="336" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="356" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="376" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="412" y="344" width="112" height="32" rx="5" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1.5"/>
+  <rect x="420" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="440" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="460" y="352" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="480" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="500" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="536" y="344" width="112" height="32" rx="5" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1.5"/>
+  <rect x="544" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="564" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="584" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="604" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="624" y="352" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="660" y="344" width="112" height="32" rx="5" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1.5"/>
+  <rect x="668" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="688" y="352" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="708" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="728" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="748" y="352" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <text x="788" y="366" font-size="18" font-weight="500" fill="var(--blog-muted, #6a737d)">… × 1,000</text>
+  <line x1="300" y1="384" x2="300" y2="408" stroke="currentColor" stroke-opacity="0.65" stroke-width="1.5" marker-end="url(#fr-arrow)"/>
+  <text x="314" y="402" font-size="16" fill="var(--blog-muted, #6a737d)">aggregate</text>
+  <rect x="40" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="60" y="422" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="80" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="100" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="120" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="140" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="160" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="180" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="200" y="422" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="220" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="240" y="422" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="260" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="280" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="300" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="320" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="340" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="360" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="380" y="422" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="400" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="420" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="440" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="460" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="480" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="500" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="520" y="422" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="540" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="560" y="422" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="580" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="600" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="620" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="640" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="660" y="422" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="680" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="700" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="720" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="740" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="760" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="780" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <rect x="800" y="422" width="16" height="16" rx="2" fill="var(--blog-green, #2e9e5b)"/>
+  <rect x="820" y="422" width="16" height="16" rx="2" fill="currentColor" fill-opacity="0.15"/>
+  <text x="844" y="436" font-size="18" fill="var(--blog-muted, #6a737d)">…</text>
+  <path d="M40 448 v6 h796 v-6" fill="none" stroke="var(--blog-accent, #2f6fde)" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="438.0" y="474" text-anchor="middle" font-size="16" fill="var(--blog-accent, #2f6fde)">evidence aggregated across responses</text>
+  <rect x="40" y="497" width="440" height="42" rx="6" fill="var(--blog-accent, #2f6fde)" fill-opacity="0.06" stroke="var(--blog-accent, #2f6fde)" stroke-width="1.5"/>
+  <text x="260" y="524" text-anchor="middle" font-size="18" font-weight="500" fill="var(--blog-accent, #2f6fde)">one z-score from aggregated evidence</text>
+  <line x1="486" y1="518" x2="548" y2="518" stroke="currentColor" stroke-opacity="0.65" stroke-width="2" marker-end="url(#fr-arrow)"/>
+  <line x1="560" y1="518" x2="920" y2="518" stroke="currentColor" stroke-opacity="0.35" stroke-width="2"/>
+  <line x1="660" y1="506" x2="660" y2="530" stroke="currentColor" stroke-opacity="0.65" stroke-width="2"/>
+  <text x="660" y="552" text-anchor="middle" font-size="17" fill="var(--blog-muted, #6a737d)">z = 4</text>
+  <circle cx="895" cy="518" r="8" fill="var(--blog-accent, #2f6fde)"/>
+  <circle cx="600" cy="518" r="6" fill="none" stroke="var(--blog-red, #d64545)" stroke-width="2"/>
+  <text x="600" y="500" text-anchor="middle" font-size="16" fill="var(--blog-red, #d64545)">one response alone</text>
+  <text x="40" y="584" font-size="19">A small excess per token adds up, so a <tspan font-weight="600" fill="var(--blog-accent, #2f6fde)">sparser teacher signal</tspan> suffices</text>
+</svg>

@@ -1,0 +1,186 @@
+<div class="nt-demo" id="nt-demo">
+  <p class="nt-demo__head">Which green tokens receive the bias?</p>
+  <p class="nt-demo__ctx">“Le chat dort sur le ___” <span class="nt-demo__translation">(The cat sleeps on the ___.)</span><br>Illustrative logits, not measured model outputs. The top-1 is <em>canapé</em> (sofa); <em>fauteuil</em>, <em>lit</em>, and <em>tapis</em> are plausible substitutes, and 4 of the 10 candidates are on the green list.</p>
+  <div class="nt-demo__controls" id="nt-controls" hidden>
+    <div class="nt-demo__modes" role="group" aria-label="Teacher distribution">
+      <button type="button" data-mode="none" aria-pressed="false">Base</button>
+      <button type="button" data-mode="kgw" aria-pressed="false">KGW</button>
+      <button type="button" data-mode="nt" aria-pressed="true" class="is-active">Near-tie</button>
+    </div>
+    <label id="nt-tau-wrap" for="nt-tau">Threshold τ
+      <input type="range" id="nt-tau" min="0.2" max="6" step="0.2" value="1.2">
+      <output id="nt-tau-v" for="nt-tau">1.2</output>
+    </label>
+    <label id="nt-delta-wrap" for="nt-delta">Bias δ
+      <input type="range" id="nt-delta" min="0.5" max="4" step="0.5" value="4">
+      <output id="nt-delta-v" for="nt-delta">4.0</output>
+    </label>
+  </div>
+  <div class="nt-demo__chart" id="nt-chart"></div>
+  <div class="nt-demo__legend">
+    <span><i class="nt-demo__legend-green"></i>green list</span>
+    <span><i class="nt-demo__legend-red"></i>red list</span>
+    <span><i class="nt-demo__legend-delta"></i>+δ added to the logit</span>
+    <span><i class="nt-demo__legend-band"></i>within τ of the top-1</span>
+  </div>
+  <p class="nt-demo__selection" id="nt-selection" aria-live="polite">Near-tie biases 2 of 4 green tokens; δ = 4.0, τ = 1.2.</p>
+  <details class="nt-demo__advanced">
+    <summary>Teacher distribution statistics</summary>
+    <div class="nt-demo__stats">
+      <div><b id="nt-s-green">–</b><span>Teacher green mass</span></div>
+      <div><b id="nt-s-kl">–</b><span>KL divergence from base</span></div>
+      <div><b id="nt-s-surp">–</b><span>Change in expected base-model surprisal</span></div>
+    </div>
+    <p class="nt-demo__note">Changing τ changes the biased mass as well as token selection. This demo illustrates the restriction; Table 2 in the paper tests placement at matched mass. These teacher statistics do not measure student quality.</p>
+  </details>
+  <noscript><p class="nt-demo__note">Enable JavaScript to see the interactive example: it plots the base logits of ten candidate tokens, marks the top-1 and a band of width τ below it, and shows which green tokens receive +δ under KGW and under near-tie.</p></noscript>
+</div>
+<script>
+(function () {
+  var root = document.getElementById('nt-demo');
+  if (!root) return;
+  var toks = [
+    ['canapé', 20.0, false], ['fauteuil', 19.6, true], ['lit', 19.3, false],
+    ['tapis', 18.9, true], ['coussin', 18.5, true], ['sol', 17.8, false],
+    ['balcon', 17.0, false], ['toit', 16.2, false], ['clavier', 15.4, true], ['piano', 14.5, false]
+  ];
+  var mode = 'nt';
+  var nGreen = toks.filter(function (t) { return t[2]; }).length;
+  var dEl = root.querySelector('#nt-delta');
+  var tEl = root.querySelector('#nt-tau');
+  var chart = root.querySelector('#nt-chart');
+  var top = Math.max.apply(null, toks.map(function (t) { return t[1]; }));
+  var gaps = toks.map(function (t) { return Number((top - t[1]).toFixed(8)); });
+  var NS = 'http://www.w3.org/2000/svg';
+
+  var W = 960, H = 430;
+  var L = 64, R = 16, T = 24, B = 92;
+  var yMin = 0, yMax = 25;
+  var plotH = H - T - B;
+  var plotW = W - L - R;
+  var slot = plotW / toks.length;
+  var barW = slot * 0.56;
+  function y(v) { return T + (yMax - v) / (yMax - yMin) * plotH; }
+  function x(i) { return L + slot * i + (slot - barW) / 2; }
+
+  function softmax(xs) {
+    var max = Math.max.apply(null, xs);
+    var exp = xs.map(function (v) { return Math.exp(v - max); });
+    var sum = exp.reduce(function (a, b) { return a + b; }, 0);
+    return exp.map(function (v) { return v / sum; });
+  }
+  var base = softmax(toks.map(function (t) { return t[1]; }));
+
+  function el(name, attrs, text) {
+    var node = document.createElementNS(NS, name);
+    Object.keys(attrs).forEach(function (k) { node.setAttribute(k, attrs[k]); });
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, width: '100%', role: 'img', 'aria-labelledby': 'nt-chart-title' });
+  svg.appendChild(el('title', { id: 'nt-chart-title' }, 'Base logits of ten candidate tokens; green tokens within τ of the top-1 receive +δ under near-tie.'));
+
+  var band = el('rect', { x: L, width: plotW, class: 'nt-band' });
+  svg.appendChild(band);
+
+  var axis = el('g', { class: 'nt-axis' });
+  [0, 5, 10, 15, 20, 25].forEach(function (v) {
+    axis.appendChild(el('line', { x1: L, x2: W - R, y1: y(v), y2: y(v), class: 'nt-grid' }));
+    axis.appendChild(el('text', { x: L - 10, y: y(v) + 5, 'text-anchor': 'end', 'font-size': 15 }, String(v)));
+  });
+  axis.appendChild(el('text', { x: 16, y: T + plotH / 2, 'text-anchor': 'middle', 'font-size': 15, 'font-weight': 600, transform: 'rotate(-90 16 ' + (T + plotH / 2) + ')' }, 'logit'));
+  svg.appendChild(axis);
+
+  var topLine = el('line', { x1: L, x2: W - R, y1: y(top), y2: y(top), class: 'nt-topline' });
+  svg.appendChild(topLine);
+  var topLabel = el('text', { x: W - R, y: y(top) - 7, 'text-anchor': 'end', 'font-size': 14, class: 'nt-toplabel' }, 'top-1');
+  svg.appendChild(topLabel);
+  var bandLabel = el('text', { x: W - R, y: 0, 'text-anchor': 'end', 'font-size': 14, class: 'nt-bandlabel' }, 'τ');
+  svg.appendChild(bandLabel);
+
+  var bars = toks.map(function (t, i) {
+    var g = el('g', { class: 'nt-bar ' + (t[2] ? 'nt-bar--green' : 'nt-bar--red') });
+    var baseRect = el('rect', { x: x(i), width: barW, rx: 3, class: 'nt-bar__base' });
+    var deltaRect = el('rect', { x: x(i), width: barW, rx: 3, class: 'nt-bar__delta' });
+    var deltaText = el('text', { x: x(i) + barW / 2, 'text-anchor': 'middle', 'font-size': 14, 'font-weight': 700, class: 'nt-bar__deltatext' }, '+δ');
+    var name = el('text', { x: x(i) + barW / 2, y: H - B + 24, 'text-anchor': 'middle', 'font-size': 16, class: 'nt-bar__name' }, t[0]);
+    var prob = el('text', { x: x(i) + barW / 2, y: H - B + 48, 'text-anchor': 'middle', 'font-size': 14, class: 'nt-bar__prob' }, '');
+    var arrow = el('text', { x: x(i) + barW / 2, y: H - B + 68, 'text-anchor': 'middle', 'font-size': 14, class: 'nt-bar__prob2' }, '');
+    g.appendChild(baseRect); g.appendChild(deltaRect); g.appendChild(deltaText);
+    g.appendChild(name); g.appendChild(prob); g.appendChild(arrow);
+    svg.appendChild(g);
+    return { g: g, baseRect: baseRect, deltaRect: deltaRect, deltaText: deltaText, prob: prob, arrow: arrow };
+  });
+  svg.appendChild(el('text', { x: L - 10, y: H - B + 48, 'text-anchor': 'end', 'font-size': 13, class: 'nt-rowlabel' }, 'base'));
+  svg.appendChild(el('text', { x: L - 10, y: H - B + 68, 'text-anchor': 'end', 'font-size': 13, class: 'nt-rowlabel' }, 'teacher'));
+  chart.appendChild(svg);
+
+  function pct(v) { return v >= 0.1 ? (v * 100).toFixed(0) + '%' : (v * 100).toFixed(1) + '%'; }
+
+  function render() {
+    var delta = Number(dEl.value), tau = Number(tEl.value);
+    tEl.disabled = mode !== 'nt';
+    dEl.disabled = mode === 'none';
+    root.querySelector('#nt-delta-v').textContent = delta.toFixed(1);
+    root.querySelector('#nt-tau-v').textContent = tau.toFixed(1);
+
+    var showBand = mode === 'nt';
+    band.setAttribute('y', y(top));
+    band.setAttribute('height', Math.max(0, y(top - tau) - y(top)));
+    band.style.opacity = showBand ? 1 : 0;
+    bandLabel.setAttribute('y', y(top - tau) + 16);
+    bandLabel.style.opacity = showBand ? 1 : 0;
+
+    var biased = toks.map(function (t, i) {
+      return mode !== 'none' && t[2] && (mode === 'kgw' || gaps[i] < tau);
+    });
+    var teacher = softmax(toks.map(function (t, i) { return t[1] + (biased[i] ? delta : 0); }));
+    var green = 0, kl = 0, shift = 0, count = 0;
+    teacher.forEach(function (p, i) {
+      if (toks[i][2]) green += p;
+      kl += p * Math.log(p / base[i]);
+      shift += (p - base[i]) * -Math.log(base[i]);
+      if (biased[i]) count += 1;
+      var b = bars[i], logit = toks[i][1];
+      var y0 = y(Math.max(logit, yMin)), yBase = y(yMin);
+      b.baseRect.setAttribute('y', Math.min(y0, yBase));
+      b.baseRect.setAttribute('height', Math.abs(yBase - y0));
+      if (biased[i]) {
+        b.deltaRect.setAttribute('y', y(logit + delta));
+        b.deltaRect.setAttribute('height', y(logit) - y(logit + delta));
+        b.deltaText.setAttribute('y', (y(logit + delta) + y(logit)) / 2 + 5);
+        b.deltaText.style.opacity = delta >= 1 ? 1 : 0;
+      } else {
+        b.deltaRect.setAttribute('height', 0);
+        b.deltaText.style.opacity = 0;
+      }
+      b.g.classList.toggle('is-biased', biased[i]);
+      b.prob.textContent = pct(base[i]);
+      b.arrow.textContent = mode === 'none' ? '' : pct(p);
+      b.g.setAttribute('aria-label', toks[i][0] + ', ' + (toks[i][2] ? 'green' : 'red') + ', logit ' + logit.toFixed(1) + (biased[i] ? ', receives bias' : ', no bias') + '; base ' + pct(base[i]) + ', teacher ' + pct(p));
+    });
+    root.querySelector('#nt-s-green').textContent = (green * 100).toFixed(1) + '%';
+    root.querySelector('#nt-s-kl').textContent = Math.max(0, kl).toFixed(3);
+    root.querySelector('#nt-s-surp').textContent = (shift > 0 ? '+' : '') + shift.toFixed(3);
+    root.querySelector('#nt-selection').textContent = mode === 'none'
+      ? 'Base distribution: no tokens receive a bias.'
+      : (mode === 'kgw' ? 'KGW biases every green token (' + count + ' of ' + nGreen + ')' : 'Near-tie biases ' + count + ' of ' + nGreen + ' green tokens') + '; δ = ' + delta.toFixed(1) + (mode === 'nt' ? ', τ = ' + tau.toFixed(1) : '') + '.';
+  }
+  root.querySelectorAll('.nt-demo__modes button').forEach(function (button) {
+    button.addEventListener('click', function () {
+      mode = button.getAttribute('data-mode');
+      root.querySelectorAll('.nt-demo__modes button').forEach(function (item) {
+        var active = item === button;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+      render();
+    });
+  });
+  dEl.addEventListener('input', render);
+  tEl.addEventListener('input', render);
+  render();
+  root.querySelector('#nt-controls').hidden = false;
+})();
+</script>

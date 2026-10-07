@@ -1,0 +1,37 @@
+<div class="nt-metrics">
+  <p class="nt-metrics__group">Prior utility evaluation</p>
+  <div class="nt-metrics__grid">
+    <div class="nt-metric">
+      <strong class="nt-metric__name">Benchmark accuracy ↑</strong>
+      <span class="nt-metric__context">French Benchmark</span>
+      <div class="nt-metric__row"><span>Base</span><span class="nt-metric__track" aria-hidden="true"><i style="width: 64%"></i></span><b>0.64</b></div>
+      <div class="nt-metric__row nt-metric__row--fp"><span>KGW</span><span class="nt-metric__track" aria-hidden="true"><i style="width: 61%"></i></span><b>0.61</b></div>
+      <span class="nt-metric__note">−3 percentage points</span>
+    </div>
+    <div class="nt-metric">
+      <strong class="nt-metric__name">Mean token entropy</strong>
+      <span class="nt-metric__context">Labeled “PPL” in the prior implementation</span>
+      <div class="nt-metric__row"><span>Base</span><span class="nt-metric__track" aria-hidden="true"><i style="width: 53.75%"></i></span><b>2.15</b></div>
+      <div class="nt-metric__row nt-metric__row--fp"><span>KGW</span><span class="nt-metric__track" aria-hidden="true"><i style="width: 77%"></i></span><b>3.08</b></div>
+      <span class="nt-metric__note">Measures distributional uncertainty</span>
+    </div>
+  </div>
+  <p class="nt-metrics__group">Our evaluation: open-ended generation · 500 French stories</p>
+  <div class="nt-metrics__grid">
+    <div class="nt-metric nt-metric--generation">
+      <strong class="nt-metric__name">Perplexity ↓</strong>
+      <span class="nt-metric__context">External reference: Qwen-2.5-32B</span>
+      <div class="nt-metric__row"><span>Base</span><span class="nt-metric__track" aria-hidden="true"><i style="width: 15.4333%"></i></span><b>4.63</b></div>
+      <div class="nt-metric__row nt-metric__row--fp"><span>KGW</span><span class="nt-metric__track" aria-hidden="true"><i style="width: 94.2333%"></i></span><b>28.27</b></div>
+      <span class="nt-metric__note">6.1× perplexity</span>
+    </div>
+    <div class="nt-metric nt-metric--generation">
+      <strong class="nt-metric__name">Linguistic quality ↑</strong>
+      <span class="nt-metric__context">GPT-5 judge · 1–10 scale</span>
+      <div class="nt-metric__row"><span>Base</span><span class="nt-metric__track" aria-hidden="true"><i style="width: 77.6%"></i></span><b>7.76</b></div>
+      <div class="nt-metric__row nt-metric__row--fp"><span>KGW</span><span class="nt-metric__track" aria-hidden="true"><i style="width: 37.3%"></i></span><b>3.73</b></div>
+      <span class="nt-metric__note">−4.03 judge points</span>
+    </div>
+  </div>
+  <p class="nt-metrics__source">Llama-3.1-8B-Instruct · KGW, δ = 4 · Each panel uses its own scale.</p>
+</div>
